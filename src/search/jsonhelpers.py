@@ -18,3 +18,14 @@ def extract_json_from_string(s):
             pass
 
     return json_objects
+
+def get_model_response(json_data):
+    try:
+        data = json.loads(json_data)
+        if 'choices' in data and len(data['choices']) > 0:
+            return data['choices'][0]['message']['content']
+        else:
+            return "No response found"
+    except json.JSONDecodeError as e:
+        print("Error decoding JSON:", e)
+        return None

@@ -19,12 +19,11 @@ class GPTService:
         response = requests.request("POST", url, json=payload, headers=headers)
 
         json_string = response.text
-        print(f"response text: {json_string}")
         
         return json_string
         
 
-    def _getPayload(self, content, role="Assistant", name="GPTService"):
+    def _getPayload(self, content, role="user", name="GPTService"):
         print(f"content is: {content} \nrole is: {role} \nname: {name}")
         model = "mistral-7b-instruct"
         payload = {
@@ -37,7 +36,7 @@ class GPTService:
             }
         ],
         "max_tokens": 10000,
-        "stream": True,
+        "stream": False,
         "temperture": 1,
         "top_p": 0,
         "presence_penalty": 0,
@@ -50,5 +49,6 @@ class GPTService:
 
 service = GPTService()
 json_content = service.getResponse()
-extracted_json_data = jsonhelpers.extract_json_from_string(json_content)
-
+print(f"json content: {json_content}")
+extracted_json_data = jsonhelpers.get_model_response(json_content)
+print(f"response: {extracted_json_data}")
