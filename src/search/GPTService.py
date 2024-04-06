@@ -46,9 +46,9 @@ class GPTService:
         return payload
     
 
-
-service = GPTService()
-json_content = service.getResponse()
-print(f"json content: {json_content}")
-extracted_json_data = jsonhelpers.get_model_response(json_content)
-print(f"response: {extracted_json_data}")
+if __name__ == "__main__": 
+    service = GPTService()
+    json_content = service.getResponse()
+    print(f"json content: {json_content}")
+    extracted_json_data = jsonhelpers.get_model_response(json_content)
+    print(f"response: {extracted_json_data}")

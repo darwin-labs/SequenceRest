@@ -7,3 +7,7 @@ tqdm~=4.65.0
 streamlit~=1.23.1
 google-serp-api
 google-search-results
+tiktoken~=0.6.0
+pyterrier
+pandas
+googlesearch-python
