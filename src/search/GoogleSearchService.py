@@ -12,9 +12,9 @@ class GoogleSearchService:
     def __init__(self):
         pass
 
-    def search(self, query, num_results=10, lang='en', advanced=True, sleep_interval=0.5):
+    def search(self, query, num_results=10, lang='en', advanced=True, sleep_interval=0):
         try:
-            results = google_search(query, num_results=num_results, lang=lang, advanced=True)
+            results = google_search(query, num_results=num_results, lang=lang, advanced=True, sleep_interval=sleep_interval)
             search_results = []
             for result in results:
                 
@@ -30,7 +30,7 @@ class GoogleSearchService:
 search_service = GoogleSearchService()
     
 query = "Coffee"
-num_results = 2
+num_results = 5
     
 start_time = time.time()
 search_results = search_service.search(query, num_results=num_results)
