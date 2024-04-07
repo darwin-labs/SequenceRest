@@ -30,7 +30,7 @@ class GoogleSearchService:
 search_service = GoogleSearchService()
     
 query = "Coffee"
-num_results = 5
+num_results = 15
     
 start_time = time.time()
 search_results = search_service.search(query, num_results=num_results)
