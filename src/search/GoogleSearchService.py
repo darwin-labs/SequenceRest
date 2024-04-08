@@ -1,10 +1,14 @@
 from bs4 import BeautifulSoup
 import json
+import pandas as pd
 import requests
 import GPTService
 from serpapi import GoogleSearch
 from googlesearch import search as google_search
 import time
+from text_extract.html.trafilactura import TrafilaturaSvc
+from text_extract.html.beautifulsoup_extract import BeautifulSoup
+
 
 GOOGLE_SEARCH_API_KEY = "AIzaSyD3aAJ8LXW-4BaDCgjPPx1zXWrbBwOcyBY"
 
@@ -26,6 +30,8 @@ class GoogleSearchService:
         except Exception as e:
             print("Error making request:", e)
             return None
+    def call_urls_and_extract_sentences(self, results) -> pd.Dataframe:
+
 
 search_service = GoogleSearchService()
     
