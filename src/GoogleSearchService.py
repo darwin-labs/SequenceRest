@@ -2,7 +2,7 @@ from bs4 import BeautifulSoup
 import json
 import pandas as pd
 import requests
-import GPTService
+from search import GPTService   
 from serpapi import GoogleSearch
 from googlesearch import search as google_search
 import time
@@ -30,7 +30,9 @@ class GoogleSearchService:
         except Exception as e:
             print("Error making request:", e)
             return None
-    def call_urls_and_extract_sentences(self, results) -> pd.Dataframe:
+
+def call_urls_and_extract_sentences(self, results) -> pd.Dataframe:
+    return pd.Dataframe()
 
 
 search_service = GoogleSearchService()

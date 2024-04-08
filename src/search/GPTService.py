@@ -1,6 +1,6 @@
 import requests 
 import json
-import jsonhelpers
+from search import jsonhelpers
 
 #GPTService for handling any type requests
 class GPTService:
