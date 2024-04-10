@@ -34,7 +34,8 @@ class GoogleSearchService:
         name_list, url_list, url_id_list, snippet_list, text_list = [], [], [], [], []
 
         for result in search_results:
-            return
+            result_url = result['url']
+            website_text_content = extract_sentences_from_url(result_url)
 
 
     def call_one_url(self, website_tuple):
@@ -47,7 +48,7 @@ class GoogleSearchService:
     def extract_sentences_from_url(self, url):
         # Fetch the HTML content of the page
         try:
-            response = requests.get(url, timeout=3)
+            response = requests.get(url, timeout=0)
         except:
             logger.error(f"Failed to fetch url: {url}")
             return []
@@ -63,7 +64,7 @@ class GoogleSearchService:
 search_service = GoogleSearchService()
     
 query = "Coffee"
-num_results = 15
+num_results = 10
     
 start_time = time.time()
 search_results = search_service.search(query, num_results=num_results)
@@ -72,5 +73,6 @@ elapsed_time = end_time - start_time
 print(f'request took {elapsed_time} to finish')
 if search_results:
     print(f'search results: {search_results}')
+    search_service.call_urls_and_extract_sentences(results=search_results)
 else:
     print("No results found.")
