@@ -30,9 +30,34 @@ class GoogleSearchService:
         except Exception as e:
             print("Error making request:", e)
             return None
+    def call_urls_and_extract_sentences(self, results):
+        name_list, url_list, url_id_list, snippet_list, text_list = [], [], [], [], []
 
-def call_urls_and_extract_sentences(self, results) -> pd.Dataframe:
-    return pd.Dataframe()
+        for result in search_results:
+            return
+
+
+    def call_one_url(self, website_tuple):
+        name, url, snippet, url_id = website_tuple
+        logger.info(f"Processing url: {url}")
+        sentences = self.extract_sentences_from_url(url)
+        logger.info(f"  receive sentences: {len(sentences)}")
+        return sentences, name, url, url_id, snippet
+
+    def extract_sentences_from_url(self, url):
+        # Fetch the HTML content of the page
+        try:
+            response = requests.get(url, timeout=3)
+        except:
+            logger.error(f"Failed to fetch url: {url}")
+            return []
+        html_content = response.text
+
+        # Use BeautifulSoup to parse the HTML and extract the text
+        extract_text = self.txt_extract_svc.extract_from_html(html_content)
+        return extract_text
+
+        
 
 
 search_service = GoogleSearchService()
