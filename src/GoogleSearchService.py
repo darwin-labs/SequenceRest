@@ -21,21 +21,29 @@ class GoogleSearchService:
             results = google_search(query, num_results=num_results, lang=lang, advanced=True, sleep_interval=sleep_interval)
             search_results = []
             for result in results:
-                
+                print("result: ", result)
                 search_results.append({
                     "title": result.title,
-                    "url": result.url
+                    "url": result.url,
+                    "description": result.description,
                 })
             return search_results
         except Exception as e:
             print("Error making request:", e)
             return None
+
     def call_urls_and_extract_sentences(self, results):
-        name_list, url_list, url_id_list, snippet_list, text_list = [], [], [], [], []
+        name_list, url_list, description_list, text_list = [], [], [], []
 
         for result in search_results:
             result_url = result['url']
-            website_text_content = extract_sentences_from_url(result_url)
+            text_content = self.extract_sentences_from_url(result_url)
+            description = result['description']
+            
+            
+
+
+
 
 
     def call_one_url(self, website_tuple):
@@ -45,17 +53,18 @@ class GoogleSearchService:
         logger.info(f"  receive sentences: {len(sentences)}")
         return sentences, name, url, url_id, snippet
 
+    
     def extract_sentences_from_url(self, url):
         # Fetch the HTML content of the page
         try:
             response = requests.get(url, timeout=0)
         except:
-            logger.error(f"Failed to fetch url: {url}")
+          
             return []
         html_content = response.text
 
         # Use BeautifulSoup to parse the HTML and extract the text
-        extract_text = self.txt_extract_svc.extract_from_html(html_content)
+        extract_text = txt_extract_svc.extract_from_html(html_content)
         return extract_text
 
         
@@ -64,7 +73,7 @@ class GoogleSearchService:
 search_service = GoogleSearchService()
     
 query = "Coffee"
-num_results = 10
+num_results = 1
     
 start_time = time.time()
 search_results = search_service.search(query, num_results=num_results)
