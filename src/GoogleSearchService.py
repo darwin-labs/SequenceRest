@@ -39,12 +39,15 @@ class GoogleSearchService:
             result_url = result['url']
             text_content = self.extract_sentences_from_url(result_url)
             description = result['description']
-            
-            
+
+            print(f"text content: {text_content}")
 
 
-
-
+            url_list.append(result_url)
+            name_list.append(result_url)
+            description_list.append(description)
+            text_list.append(text_content)
+        return name_list, url_list, description_list, text_list
 
     def call_one_url(self, website_tuple):
         name, url, snippet, url_id = website_tuple
@@ -82,6 +85,7 @@ elapsed_time = end_time - start_time
 print(f'request took {elapsed_time} to finish')
 if search_results:
     print(f'search results: {search_results}')
-    search_service.call_urls_and_extract_sentences(results=search_results)
+    extracted_sentences = search_service.call_urls_and_extract_sentences(results=search_results)
+    print("extracted sentences: ", extracted_sentences)
 else:
     print("No results found.")
