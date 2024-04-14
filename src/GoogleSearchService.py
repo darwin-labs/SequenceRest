@@ -7,7 +7,11 @@ from serpapi import GoogleSearch
 from googlesearch import search as google_search
 import time
 from text_extract.html.trafilactura import TrafilaturaSvc
-from text_extract.html.beautifulsoup_extract import BeautifulSoup
+from text_extract.html.beautifulsoup_extract import BeautifulSoupSvc
+
+from search import SearchErrors
+
+from time import sleep
 
 
 GOOGLE_SEARCH_API_KEY = "AIzaSyD3aAJ8LXW-4BaDCgjPPx1zXWrbBwOcyBY"
@@ -47,6 +51,9 @@ class GoogleSearchService:
             name_list.append(result_url)
             description_list.append(description)
             text_list.append(text_content)
+            
+            extracted_sentences = self.extract_sentences_from_url(result_url)
+            
         return name_list, url_list, description_list, text_list
 
     def call_one_url(self, website_tuple):
@@ -58,16 +65,18 @@ class GoogleSearchService:
 
     
     def extract_sentences_from_url(self, url):
+        print("exract sentences from url being called")
         # Fetch the HTML content of the page
         try:
-            response = requests.get(url, timeout=0)
+            response = requests.get(url, timeout=5)
         except:
-          
+            raise SearchErrors.TextExtractionFromURLFailed("Text extraction failed")
             return []
         html_content = response.text
 
         # Use BeautifulSoup to parse the HTML and extract the text
-        extract_text = txt_extract_svc.extract_from_html(html_content)
+        extract_text = BeautifulSoupSvc.extract_from_html(self,html_content)
+        print(f"Google Search Service extracted this text: {extract_text} from this url: {url}")
         return extract_text
 
         
@@ -76,16 +85,18 @@ class GoogleSearchService:
 search_service = GoogleSearchService()
     
 query = "Coffee"
-num_results = 1
+num_results = 10
     
 start_time = time.time()
 search_results = search_service.search(query, num_results=num_results)
-end_time = time.time()
-elapsed_time = end_time - start_time
-print(f'request took {elapsed_time} to finish')
 if search_results:
     print(f'search results: {search_results}')
     extracted_sentences = search_service.call_urls_and_extract_sentences(results=search_results)
+    
     print("extracted sentences: ", extracted_sentences)
+    
+    end_time = time.time()
+    elapsed_time = end_time - start_time
+    print(f'request took {elapsed_time} to finish')
 else:
     print("No results found.")
