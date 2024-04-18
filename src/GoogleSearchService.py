@@ -78,6 +78,15 @@ class GoogleSearchService:
         extract_text = BeautifulSoupSvc.extract_from_html(self,html_content)
         print(f"Google Search Service extracted this text: {extract_text} from this url: {url}")
         return extract_text
+    
+    def count_tokens(input_string):
+        # Split the string into tokens
+        tokens = input_string.split()
+    
+        # Get the number of tokens
+        num_tokens = len(tokens)
+    
+        return num_tokens
 
         
 
@@ -85,7 +94,7 @@ class GoogleSearchService:
 search_service = GoogleSearchService()
     
 query = "Coffee"
-num_results = 10
+num_results = 3
     
 start_time = time.time()
 search_results = search_service.search(query, num_results=num_results)
