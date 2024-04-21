@@ -6,7 +6,7 @@ from search import jsonhelpers
 class GPTService:
 
     
-    def getResponse(self):
+    def getResponse(self, query):
         api_key = "lo-kud2TUZah6y5zdqTo6cSx3AE9QGn526hxktpn4A9zvT3mwwr"
         url = "https://api.llmos.dev/v1/chat/completions"
 
@@ -14,7 +14,7 @@ class GPTService:
          "Authorization": f"Bearer {api_key}",
           "Content-Type": "application/json"
     }
-        payload = self._getPayload("Hello World!", "user")
+        payload = self._getPayload(query, "user")
 
         response = requests.request("POST", url, json=payload, headers=headers)
 
