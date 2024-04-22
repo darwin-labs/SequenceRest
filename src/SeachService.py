@@ -22,7 +22,8 @@ class SearchService:
         
         for result in results:
             prompt = "Answer this question scientifically and fact-orientated using the text and information in this source: {result.url} with this content: {result.text}" 
-            gpt_service.getResponse("")
+            answer = gpt_service.getResponse(prompt)
+            print(f"Answer: {answer}")
         
         
 search = SearchService()
