@@ -5,7 +5,7 @@ import yaml
 from search import GPTService
 import search
 import SourceService
-import GoogleSearchService
+from GoogleSearchService import GoogleSearchService
 
 class SearchService:
 
@@ -16,7 +16,7 @@ class SearchService:
 
     def handle_request(self, query, num_results, is_pro_user):
         google_search = GoogleSearchService()
-        gpt_service = GPTService()
+        gpt_service = GPTService.GPTService()
         
         results = google_search.search(query=query, num_results=num_results)
         

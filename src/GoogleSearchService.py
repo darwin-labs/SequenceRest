@@ -25,13 +25,13 @@ class GoogleSearchService:
             results = google_search(query, num_results=num_results, lang=lang, advanced=True, sleep_interval=1)
             search_results = []
             for result in results:
-                text_content = extracted_sentences_from_url(result.url)
+                text_content = self.extract_sentences_from_url(result.url)
                 print("result: ", result)
                 search_results.append({
                     "title": result.title,
                     "url": result.url,
                     "description": result.description,
-                    "text": result.text_content
+                    "text": text_content
                 })
             return search_results
         except Exception as e:
