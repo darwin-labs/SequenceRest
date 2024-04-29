@@ -1,6 +1,5 @@
 import requests 
 import json
-import jsonhelpers
 import g4f
 from g4f.client import Client
 import requests
@@ -8,6 +7,7 @@ import re
 import bs4
 import pandas as pd
 import csv
+import time
 
 #GPTService for handling any type requests
 class GPTService:
@@ -56,16 +56,19 @@ class GPTService:
     def request_with_query(self, query: str, model: str, role: str):
         query_len = len(query)
         client = Client()
-        print(f"Requst to gpt4free with query length: {query_len}")
+        print(f"Reqeust to gpt4free with query length: {query_len}")
         
         if query_len > 16385:
             print("Prompt to long")
             return
-
+        start_time = time.time()
         completion = client.chat.completions.create(
             model=model,
             messages=[{"role": role, "content": query}]
         )
+        end_time = time.time()
+        duration = end_time - start_time
+        print(f"GPTService request took {duration} seconds")
         response = completion.choices[0].message.content
         print(f"GPTService responded with content: {response}")
         
