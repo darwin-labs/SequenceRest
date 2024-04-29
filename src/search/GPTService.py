@@ -58,7 +58,7 @@ class GPTService:
         client = Client()
         print(f"Requst to gpt4free with query length: {query_len}")
         
-        if query_len > MAX_CHARACTERS:
+        if query_len > 16385:
             print("Prompt to long")
             return
 
@@ -66,9 +66,10 @@ class GPTService:
             model=model,
             messages=[{"role": role, "content": query}]
         )
-        reponse = completion.choices[0].message.content
+        response = completion.choices[0].message.content
         print(f"GPTService responded with content: {response}")
-
+        
+        return response
         
         
     
