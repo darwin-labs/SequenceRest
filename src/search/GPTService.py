@@ -2,6 +2,7 @@ import requests
 import json
 import jsonhelpers
 import g4f
+from g4f.client import Client
 import requests
 import re
 import bs4
@@ -52,24 +53,29 @@ class GPTService:
         print(f"payload: {payload}")
         return payload
     
-    def request_with_query(self, query, model, role):
+    def request_with_query(self, query: str, model: str, role: str):
         query_len = len(query)
+        client = Client()
         print(f"Requst to gpt4free with query length: {query_len}")
         
         if query_len > MAX_CHARACTERS:
             print("Prompt to long")
             return
-        
-        comnpletion = g4f.completion(
-            
-            
+
+        completion = client.chat.completions.create(
+            model=model,
+            messages=[{"role": role, "content": query}]
         )
+        reponse = completion.choices[0].message.content
+        print(f"GPTService responded with content: {response}")
+
+        
         
     
 
 if __name__ == "__main__": 
     service = GPTService()
-    json_content = service.getResponse("Test query")
-    print(f"json content: {json_content}")
-    extracted_json_data = jsonhelpers.get_model_response(json_content)
-    print(f"response: {extracted_json_data}")
+    query = "Test query"
+    model = "gpt-3.5-turbo"
+    request = service.request_with_query(query=query, model=model, role="user")
+    
