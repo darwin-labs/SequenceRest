@@ -86,7 +86,7 @@ class GoogleSearchService:
         print(f"Google Search Service extracted this text: {extract_text} from this url: {url}")
         return extract_text
     
-    def extract_sentences_from_url_v2(url):
+    def extract_sentences_from_url_v2(self, url):
         try:
             response = requests.get(url)
             if response.status_code == 200:

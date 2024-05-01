@@ -1,5 +1,6 @@
 from urllib.parse import urlparse
 
+@staticmethod
 def get_tld(url):
     parsed_url = urlparse(url)
     domain_parts = parsed_url.netloc.split('.')

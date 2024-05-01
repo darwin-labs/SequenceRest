@@ -6,7 +6,8 @@ from search import GPTService
 import search
 import SourceService
 from GoogleSearchService import GoogleSearchService
-from Utils import tld
+from Utils.tld import get_tld
+from Utils.SearchServiceUtils import get_sources_string, get_sources
 
 class SearchService:
     def __init__(self):
@@ -22,26 +23,15 @@ class SearchService:
             return
 
         print("Got results, now sending a request to GPTService")
-        sources_string = self.get_sources_string(results)
+        used_websites = get_sources(results)
+        sources_string = get_sources_string(results)
 
-        print(f"sources string: {sources_string}")
-
-        # prompt = "Answer this question scientifically and fact-orientated using the text and information from these sources: {} with this content: {}"
-        # answer = gpt_service.request_with_query()
-        # print(f"Answer: {answer}")
+        prompt = f"Answer this question: {query} scientifically and fact-orientated using the text and information provided to you from these websites: {used_websites} with this content: {sources_string}. Use the content provided for you to form you anwer."
+        print(f"Promt: {prompt}")
+        answer = gpt_service.request_with_query(query=prompt, model="gpt-3.5-turbo", role="user")
+        print(f"Answer: {answer}")
         return
 
-    def get_sources_string(self, results):
-        sources_string = ""
-        index = 1
-        for result in results:
-            tld = get_tld(result.url)
-            content = result.text  # Assuming this retrieves text content from the result, adjust if necessary
-            string_to_append = f"{index}. {tld}: {result.title}, content: {content} \n"
-            sources_string += string_to_append
-            index += 1
-
-        return sources_string
 
         
         
