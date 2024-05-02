@@ -26,7 +26,7 @@ class SearchService:
         used_websites = get_sources(results)
         sources_string = get_sources_string(results)
 
-        prompt = f"Answer this question: {query} scientifically and fact-orientated using the text and information provided to you from these websites: {used_websites} with this content: {sources_string}. Use the content provided for you to form you answer."
+        prompt = f"Answer this question in English: {query}; Respond scientifically and fact-orientated using the text and information provided to you from these websites: {used_websites} with this content: {sources_string}. Use the content provided for you to form you answer. Use direct qoutes from the sources."
         print(f"Promt: {prompt}")
         answer = gpt_service.request_with_query(query=prompt, model="gpt-3.5-turbo", role="user")
         print(f"Answer: {answer}")
@@ -37,5 +37,5 @@ class SearchService:
         
 search = SearchService()
 
-search.handle_request("How to roast coffe", 1, False)
+search.handle_request("What caused the SVB collapse?", 3, False)
     
