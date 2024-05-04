@@ -1,6 +1,6 @@
 import os
 import re
-import pandas as p
+import pandas as pd
 import yaml
 from search import GPTService
 import search
