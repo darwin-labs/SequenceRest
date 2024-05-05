@@ -26,3 +26,4 @@ g4f
 Gunicorn
 Flask
 Werkzeug==2.2.2
+python-dotenv
