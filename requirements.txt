@@ -23,3 +23,5 @@ python-googlesearch
 lxml
 googlesearch-python
 g4f
+Gunicorn
+Flask
