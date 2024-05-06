@@ -4,7 +4,7 @@ import pandas as pd
 import requests
 from search import GPTService   
 from serpapi import GoogleSearch
-from googlesearch import search as google_search
+from googlesearch import Search as google_search
 import time
 from text_extract.html.trafilactura import TrafilaturaSvc
 from text_extract.html.beautifulsoup_extract import BeautifulSoupSvc
