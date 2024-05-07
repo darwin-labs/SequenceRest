@@ -4,7 +4,7 @@ import pandas as pd
 import requests
 from search import GPTService   
 from serpapi import GoogleSearch
-from googlesearch import Search as google_search
+from googlesearch import search as google_search
 import time
 from text_extract.html.trafilactura import TrafilaturaSvc
 from text_extract.html.beautifulsoup_extract import BeautifulSoupSvc
@@ -26,7 +26,7 @@ class GoogleSearchService:
 
     def search(self, query, num_results=10, lang='en', advanced=True, sleep_interval=0):
         try:
-            results = google_search(query, num_results=num_results, lang=lang, advanced=True, sleep_interval=1)
+            results = google_search(query, num_results=num_results, lang=lang, advanced=True)
             search_results = []
             for result in results:
                 text_content = self.extract_sentences_from_url_v2(result.url)
