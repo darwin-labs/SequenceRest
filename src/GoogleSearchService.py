@@ -12,6 +12,7 @@ from bs4 import BeautifulSoup, SoupStrainer
 from concurrent.futures import ThreadPoolExecutor
 from lxml import html
 import re
+from search.google import Google
 
 from search import SearchErrors
 
@@ -26,14 +27,14 @@ class GoogleSearchService:
 
     def search(self, query, num_results=10, lang='en', advanced=True, sleep_interval=0):
         try:
-            results = google_search(query, num_results=num_results, lang=lang, advanced=True)
+            results = Google.search(query)
             search_results = []
             for result in results:
-                text_content = self.extract_sentences_from_url_v2(result.url)
+                text_content = self.extract_sentences_from_url_v2(result.link)
                 print("result: ", result)
                 search_results.append({
-                    "title": result.title,
-                    "url": result.url,
+                    "title": result.name,
+                    "url": result.link,
                     "description": result.description,
                     "text": text_content
                 })
