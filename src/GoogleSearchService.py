@@ -4,7 +4,6 @@ import pandas as pd
 import requests
 from search import GPTService   
 from serpapi import GoogleSearch
-from googlesearch import search as google_search
 import time
 from text_extract.html.trafilactura import TrafilaturaSvc
 from text_extract.html.beautifulsoup_extract import BeautifulSoupSvc
@@ -12,7 +11,7 @@ from bs4 import BeautifulSoup, SoupStrainer
 from concurrent.futures import ThreadPoolExecutor
 from lxml import html
 import re
-import googlesearch
+from googlesearch import search
 
 from search import SearchErrors
 
@@ -25,9 +24,15 @@ class GoogleSearchService:
     def __init__(self):
         pass
 
-    def search(self, query, num_results=10, lang='en', advanced=True, sleep_interval=0):
+    def search_request(self, query, num_results=10, lang='en', advanced=True, sleep_interval=0):
         try:
-            results = Google.search(query)
+            header =  GoogleSearch({
+            "q": query, 
+            "location": "Austin,Texas",
+            "api_key": GOOGLE_SEARCH_API_KEY
+            })
+            result_dict = search.get_dict()
+            print("Result dict: ", result_dict)
             print(f"Got results from google: {results}")
             search_results = []
             for result in results:
@@ -126,7 +131,7 @@ query = "Coffee"
 num_results = 3
     
 start_time = time.time()
-search_results = search_service.search(query, num_results=num_results)
+search_results = search_service.search_request(query, num_results=num_results)
 print(f"Search results: {search_results}")
 if search_results:
     print(f'search results: {search_results}')

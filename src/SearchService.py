@@ -17,7 +17,7 @@ class SearchService:
         google_search = GoogleSearchService()
         gpt_service = GPTService.GPTService()
 
-        results = google_search.search(query=query, num_results=num_results)
+        results = google_search.search_request(query=query, num_results=num_results)
         if results is None:
             print("No results found.")
             return
