@@ -3,7 +3,6 @@ import json
 import pandas as pd
 import requests
 from search import GPTService   
-from serpapi import GoogleSearch
 import time
 from text_extract.html.trafilactura import TrafilaturaSvc
 from text_extract.html.beautifulsoup_extract import BeautifulSoupSvc
@@ -14,6 +13,7 @@ import re
 from googlesearch import search
 
 from search import SearchErrors
+import google
 
 from time import sleep
 
@@ -26,16 +26,13 @@ class GoogleSearchService:
 
     def search_request(self, query, num_results=10, lang='en', advanced=True, sleep_interval=0):
         try:
-            header =  GoogleSearch({
-            "q": query, 
-            "location": "Austin,Texas",
-            "api_key": GOOGLE_SEARCH_API_KEY
-            })
-            result_dict = search.get_dict()
-            print("Result dict: ", result_dict)
+            
+            results = []
+            
             print(f"Got results from google: {results}")
             search_results = []
             for result in results:
+                
                 text_content = self.extract_sentences_from_url_v2(result.link)
                 print("result: ", result)
                 search_results.append({
