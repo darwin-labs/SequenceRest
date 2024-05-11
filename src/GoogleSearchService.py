@@ -10,24 +10,50 @@ from bs4 import BeautifulSoup, SoupStrainer
 from concurrent.futures import ThreadPoolExecutor
 from lxml import html
 import re
-from googlesearch import search
-
+import googlesearch
 from search import SearchErrors
 import google
 
 from time import sleep
 
 
-GOOGLE_SEARCH_API_KEY = "AIzaSyD3aAJ8LXW-4BaDCgjPPx1zXWrbBwOcyBY"
+GOOGLE_SEARCH_API_KEY = "AIzaSyArV1Wpr69KhpWMIG14eSPaaTk7a7z4-1Q"
+SEARCH_ENGINE_ID = '17607ca6a871d4be5'
 
 class GoogleSearchService:
     def __init__(self):
         pass
 
+    @staticmethod 
+    def perform_google_search(query, num_results=10):
+        url = f"https://www.googleapis.com/customsearch/v1?key={GOOGLE_SEARCH_API_KEY}&cx={SEARCH_ENGINE_ID}&q={query}"
+        
+        response = requests.get(url)
+        
+        data = json.loads(response.text)
+        
+        final_results = []
+        
+        if 'error' in data:
+            print("Error:", data['error']['message'])
+            return
+        elif 'items' not in data:
+            print("No search results")
+            return
+        else:
+            search_results = data['items']
+            
+            for result in search_results:
+                print("Result: ", result)
+                
+        
+        
+        
+        return []
+        
     def search_request(self, query, num_results=10, lang='en', advanced=True, sleep_interval=0):
         try:
-            
-            results = []
+            results = googlesearch.search(query)
             
             print(f"Got results from google: {results}")
             search_results = []
@@ -128,6 +154,7 @@ query = "Coffee"
 num_results = 3
     
 start_time = time.time()
+google_search_test = search_service.perform_google_search('How to roast coffe?', num_results=10)
 search_results = search_service.search_request(query, num_results=num_results)
 print(f"Search results: {search_results}")
 if search_results:
