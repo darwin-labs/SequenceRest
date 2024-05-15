@@ -25,7 +25,9 @@ class GoogleSearchService:
         pass
 
     @staticmethod 
-    def perform_google_search(query, num_results=10):
+    def perform_google_search(self, query, num_results=10):
+        start_time = time.time()  # Record the start time
+
         url = f"https://www.googleapis.com/customsearch/v1?key={GOOGLE_SEARCH_API_KEY}&cx={SEARCH_ENGINE_ID}&q={query}"
         
         response = requests.get(url)
@@ -43,13 +45,26 @@ class GoogleSearchService:
         else:
             search_results = data['items']
             
+            num_of_results = len(search_results)
+            
+            print("Total number of results: ", num_of_results)
+            
             for result in search_results:
-                print("Result: ", result)
+                print("Extracting text content")
+                text_content = self.extract_sentences_from_url_v2(result['link'])
+                final_results.append({ 
+                                        "title": result['title'],
+                                        "url": result['link'],
+                                        "description": result['snippet'],
+                                        "text": text_content
+                                      })
                 
         
+        end_time = time.time()  # Record the end time
+        execution_time = end_time - start_time  # Calculate the execution time
+        print(f"Execution time: {execution_time} seconds")
         
-        
-        return []
+        return final_results
         
     def search_request(self, query, num_results=10, lang='en', advanced=True, sleep_interval=0):
         try:
@@ -154,17 +169,5 @@ query = "Coffee"
 num_results = 3
     
 start_time = time.time()
-google_search_test = search_service.perform_google_search('How to roast coffe?', num_results=10)
-search_results = search_service.search_request(query, num_results=num_results)
-print(f"Search results: {search_results}")
-if search_results:
-    print(f'search results: {search_results}')
-    extracted_sentences = search_service.call_urls_and_extract_sentences(results=search_results)
-    
-    print("extracted sentences: ", extracted_sentences)
-    
-    end_time = time.time()
-    elapsed_time = end_time - start_time
-    print(f'request took {elapsed_time} to finish')
-else:
-    print("No results found.")
+google_search_test = search_service.perform_google_search(query='How to roast coffe?', num_results=10)
+print(f"Search results: {google_search_test}")
