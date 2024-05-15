@@ -24,7 +24,6 @@ class GoogleSearchService:
     def __init__(self):
         pass
 
-    @staticmethod 
     def perform_google_search(self, query, num_results=10):
         start_time = time.time()  # Record the start time
 
@@ -51,7 +50,7 @@ class GoogleSearchService:
             
             for result in search_results:
                 print("Extracting text content")
-                text_content = self.extract_sentences_from_url_v2(result['link'])
+                text_content = self.extract_sentences_from_url(result['link'])
                 final_results.append({ 
                                         "title": result['title'],
                                         "url": result['link'],
