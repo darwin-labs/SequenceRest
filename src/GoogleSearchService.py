@@ -50,7 +50,7 @@ class GoogleSearchService:
             
             for result in search_results:
                 print("Extracting text content")
-                text_content = self.extract_sentences_from_url(result['link'])
+                text_content = self.extract_sentences(result['link'])
                 final_results.append({ 
                                         "title": result['title'],
                                         "url": result['link'],
@@ -131,6 +131,8 @@ class GoogleSearchService:
         return extract_text
     
     def extract_sentences_from_url_v2(self, url):
+        
+        
         try:
             response = requests.get(url)
             if response.status_code == 200:
@@ -149,7 +151,39 @@ class GoogleSearchService:
             print("Error processing URL:", e)
             return []
 
-    
+    def extract_sentences(self, url):
+        """
+        Extracts sentences from a website's HTML content.
+
+        Args:
+            url (str): The URL of the website.
+
+        Returns:
+            list: A list of sentences extracted from the website.
+        """
+        try:
+            # Send a GET request to the URL
+            response = requests.get(url)
+            response.raise_for_status()  # Raise an exception for non-2xx status codes
+
+            # Parse the HTML content using BeautifulSoup
+            soup = BeautifulSoup(response.text, 'html.parser')
+
+            # Extract the text content from the HTML
+            text = soup.get_text()
+
+            # Use a regular expression to split the text into sentences
+            sentences = re.split(r'[.!?]+', text)
+
+            # Remove empty strings and leading/trailing whitespace from sentences
+            sentences = [sentence.strip() for sentence in sentences if sentence.strip()]
+
+            return sentences
+
+        except requests.exceptions.RequestException as e:
+            print(f"Error: {e}")
+            return []
+
     def count_tokens(input_string):
         # Split the string into tokens
         tokens = input_string.split()
@@ -161,7 +195,7 @@ class GoogleSearchService:
 
         
 
-
+"""
 search_service = GoogleSearchService()
     
 query = "Coffee"
@@ -170,3 +204,4 @@ num_results = 3
 start_time = time.time()
 google_search_test = search_service.perform_google_search(query='How to roast coffe?', num_results=10)
 print(f"Search results: {google_search_test}")
+"""
