@@ -37,5 +37,5 @@ class SearchService:
         
 search = SearchService()
 
-search.handle_request("What caused the SVB collapse?", 3, False)
+search.handle_request("What caused the SVB collapse?", 1, False)
     

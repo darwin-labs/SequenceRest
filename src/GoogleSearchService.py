@@ -13,7 +13,6 @@ import re
 import googlesearch
 from search import SearchErrors
 import google
-
 from time import sleep
 
 
@@ -44,13 +43,15 @@ class GoogleSearchService:
         else:
             search_results = data['items']
             
-            num_of_results = len(search_results)
+            limited_results = search_results[:3]
+            
+            num_of_results = len(limited_results)
             
             print("Total number of results: ", num_of_results)
             
-            for result in search_results:
+            for result in limited_results:
                 print("Extracting text content")
-                text_content = self.extract_sentences(result['link'])
+                text_content = self.extract_paragraphs(result['link'])
                 final_results.append({ 
                                         "title": result['title'],
                                         "url": result['link'],
@@ -183,6 +184,28 @@ class GoogleSearchService:
         except requests.exceptions.RequestException as e:
             print(f"Error: {e}")
             return []
+        
+    def extract_paragraphs(self, url):
+        try:
+            # Send a GET request to the URL
+            response = requests.get(url)
+            response.raise_for_status()  # Raise an exception for HTTP errors
+
+            # Parse the HTML content
+            soup = BeautifulSoup(response.content, 'html.parser')
+
+            # Find all paragraph tags and extract their text
+            paragraphs = [p.get_text() for p in soup.find_all('p')]
+
+            # Join paragraphs into a single string with double newlines between paragraphs
+            combined_paragraphs = "\n\n".join(paragraphs)
+
+            return combined_paragraphs
+
+        except requests.RequestException as e:
+            print(f"An error occurred while fetching the URL: {e}")
+            return ""
+
 
     def count_tokens(input_string):
         # Split the string into tokens
