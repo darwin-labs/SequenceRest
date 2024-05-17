@@ -29,3 +29,5 @@ Werkzeug==2.2.2
 python-dotenv
 httplib
 python-googlesearch
+sumy
+gensim
