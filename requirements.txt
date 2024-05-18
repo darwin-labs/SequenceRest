@@ -31,3 +31,5 @@ httplib
 python-googlesearch
 sumy
 gensim
+tiktoken
+torch
