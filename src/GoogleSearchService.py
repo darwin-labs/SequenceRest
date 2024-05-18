@@ -14,6 +14,8 @@ import googlesearch
 from search import SearchErrors
 import google
 from time import sleep
+import concurrent.futures
+import os
 
 
 GOOGLE_SEARCH_API_KEY = "AIzaSyArV1Wpr69KhpWMIG14eSPaaTk7a7z4-1Q"
@@ -23,7 +25,9 @@ class GoogleSearchService:
     def __init__(self):
         pass
 
+    #Perform Google search on one thread only
     def perform_google_search(self, query, num_results=10):
+        
         start_time = time.time()  # Record the start time
 
         url = f"https://www.googleapis.com/customsearch/v1?key={GOOGLE_SEARCH_API_KEY}&cx={SEARCH_ENGINE_ID}&q={query}"
@@ -66,6 +70,56 @@ class GoogleSearchService:
         
         return final_results
         
+    def perform_google_search_multithread(self, query, num_results=10):
+        start_time = time.time()  # Record the start time
+
+        url = f"https://www.googleapis.com/customsearch/v1?key={GOOGLE_SEARCH_API_KEY}&cx={SEARCH_ENGINE_ID}&q={query}"
+        
+        response = requests.get(url)
+        
+        data = json.loads(response.text)
+        
+        final_results = []
+        
+        if 'error' in data:
+            print("Error:", data['error']['message'])
+            return
+        elif 'items' not in data:
+            print("No search results")
+            return
+        else:
+            search_results = data['items']
+            
+            limited_results = search_results[:3]
+            
+            num_of_results = len(limited_results)
+            
+            print("Total number of results: ", num_of_results)
+            
+            def fetch_text_content(result):
+                print(f"Extracting text content for URL: {result['link']}")
+                text_content = self.extract_paragraphs(result['link'])
+                return {
+                    "title": result['title'],
+                    "url": result['link'],
+                    "description": result['snippet'],
+                    "text": text_content
+                }
+
+            with ThreadPoolExecutor() as executor:
+                future_to_result = {executor.submit(fetch_text_content, result): result for result in limited_results}
+                for future in future_to_result:
+                    try:
+                        final_results.append(future.result())
+                    except Exception as exc:
+                        print(f"Generated an exception: {exc}")
+
+        end_time = time.time()  # Record the end time
+        execution_time = end_time - start_time  # Calculate the execution time
+        print(f"Execution time: {execution_time} seconds")
+        
+        return final_results
+    
     def search_request(self, query, num_results=10, lang='en', advanced=True, sleep_interval=0):
         try:
             results = googlesearch.search(query)
