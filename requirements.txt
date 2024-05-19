@@ -33,3 +33,4 @@ sumy
 gensim
 tiktoken
 torch
+together
