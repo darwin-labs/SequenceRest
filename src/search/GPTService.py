@@ -16,7 +16,7 @@ class GPTService:
 
     MAX_CHARACTERS = 16385
     
-    base_url = ''
+    client = Together(api_key=os.environ.get('8840dbe4d5a3e36272014dc405ecb6175847a08882b306999751764c2d0fe131'))
     
     @deprecated
     def getResponse(self, query):
@@ -62,7 +62,7 @@ class GPTService:
     def request_with_query(self, query: str, model: str, role: str):
         query_len = len(query)
         client = Client()
-        print(f"Reqeust to gpt4free with query length: {query_len}")
+        print(f"Request to gpt4free with query length: {query_len}")
         
         if query_len > 16385:
             print("Prompt to long")
@@ -80,6 +80,13 @@ class GPTService:
         
         return response
     
+    def perform_search(self, query: str, system_message: str):
+        query_len = len(query)
+        
+        response = client.chat.completions.create(
+        model="meta-llama/Llama-3-8b-chat-hf",
+        messages=[{"role": "user", "content": query}],
+)
     
         
         
