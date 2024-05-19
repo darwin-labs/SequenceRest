@@ -10,15 +10,14 @@ import csv
 import time
 import deprecated
 from together import Together
+import os
 
 #GPTService for handling any type requests
 class GPTService:
 
     MAX_CHARACTERS = 16385
     
-    client = Together(api_key=os.environ.get('8840dbe4d5a3e36272014dc405ecb6175847a08882b306999751764c2d0fe131'))
-    
-    @deprecated
+     
     def getResponse(self, query):
         api_key = "lo-kud2TUZah6y5zdqTo6cSx3AE9QGn526hxktpn4A9zvT3mwwr"
         url = "https://api.llmos.dev/v1/chat/completions"
@@ -80,13 +79,22 @@ class GPTService:
         
         return response
     
-    def perform_search(self, query: str, system_message: str):
+    def perform_search(self, query: str, system_message=None):
         query_len = len(query)
         
-        response = client.chat.completions.create(
-        model="meta-llama/Llama-3-8b-chat-hf",
-        messages=[{"role": "user", "content": query}],
-)
+        payload = {
+        "model": "mistralai/Mixtral-8x7B-Instruct-v0.1",
+        "temperature": 0.7,
+        "frequency_penalty": 0,
+        "presence_penalty": 0
+}
+        headers = {
+            "accept": "application/json",
+            "content-type": "application/json",
+            "Authorization": "Bearer 8840dbe4d5a3e36272014dc405ecb6175847a08882b306999751764c2d0fe131"
+            }
+        response = requests.post(url, json=payload, headers=headers)
+        print(response.text)
     
         
         
@@ -96,5 +104,7 @@ if __name__ == "__main__":
     service = GPTService()
     query = "Test query"
     model = "gpt-3.5-turbo"
-    request = service.request_with_query(query=query, model=model, role="user")
+    request = service.perform_search("How to roast coffe?")
+    
+    
     
