@@ -81,23 +81,34 @@ class GPTService:
     def perform_search(self, query: str, system_message=None):
         query_len = len(query)
         
-        url = 'https://api.together.xyz/v1/chat/completions'
+        url = "https://api.together.xyz/v1/chat/completions"
+        api_key = '8840dbe4d5a3e36272014dc405ecb6175847a08882b306999751764c2d0fe131'
         
-        payload = {
-        "model": "mistralai/Mixtral-8x7B-Instruct-v0.1",
-        "temperature": 0.7,
-        "frequency_penalty": 0,
-        "presence_penalty": 0
-}
         headers = {
-            "accept": "application/json",
-            "content-type": "application/json",
-            "Authorization": "Bearer 8840dbe4d5a3e36272014dc405ecb6175847a08882b306999751764c2d0fe131"
-            }
-        response = requests.post(url, json=payload, headers=headers)
-        print(response.text)
-    
+            "Authorization": f"Bearer {api_key}",
+            "Content-Type": "application/json"
+        }
+        payload = {
+            "model": "mistralai/Mixtral-8x7B-Instruct-v0.1",
+            "messages": [
+                {"role": "system", "content": system_message},
+                {"role": "user", "content": query}
+                ],
+            "temperature": 1,
+            "max_tokens": 500,
+            "stream_tokens": False
+        }
         
+        response = requests.post(url, headers=headers, json=payload)
+        
+        decoded_response = json.loads(response.text)
+        
+        print(f'Decoded response: {decoded_response}')
+        
+        response_text = decoded_response["message"]["content"]
+                
+        return response_text
+            
         
     
 
