@@ -57,7 +57,6 @@ class GPTService:
         print(f"payload: {payload}")
         return payload
     
-    @deprecated
     def request_with_query(self, query: str, model: str, role: str):
         query_len = len(query)
         client = Client()
@@ -82,6 +81,8 @@ class GPTService:
     def perform_search(self, query: str, system_message=None):
         query_len = len(query)
         
+        url = 'https://api.together.xyz/v1/chat/completions'
+        
         payload = {
         "model": "mistralai/Mixtral-8x7B-Instruct-v0.1",
         "temperature": 0.7,
@@ -104,7 +105,7 @@ if __name__ == "__main__":
     service = GPTService()
     query = "Test query"
     model = "gpt-3.5-turbo"
-    request = service.perform_search("How to roast coffe?")
+    request = service.perform_search('How to roast coffe?', system_message='')
     
     
     
