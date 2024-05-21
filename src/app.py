@@ -1,7 +1,8 @@
 import json
 from flask import Flask, request, jsonify
 from dotenv import load_dotenv
-import SearchService
+from SearchService import SearchService
+import socket
 
 app = Flask(__name__)
 
@@ -19,9 +20,7 @@ def query_request():
     model = request.args.get('model')
     print(f"Requested model: {model}")
     
-    completion = search_service.handle_request(query=query, num_of_sources=num_of_sources, model=model)
-    
-    
+    completion = search_service.handle_request(query=query, num_results=3)
     
     print(completion)
     return f"Completion: {completion}"

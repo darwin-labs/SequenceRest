@@ -13,7 +13,7 @@ class SearchService:
     def __init__(self):
         pass
 
-    def handle_request(self, query, num_results, is_pro_user):
+    def handle_request(self, query, num_results, is_pro_user=False):
         google_search = GoogleSearchService()
         gpt_service = GPTService.GPTService()
 
@@ -32,10 +32,3 @@ class SearchService:
         print(f"Answer: {answer}")
         return answer
 
-
-        
-        
-search = SearchService()
-
-search.handle_request("What caused the SVB collapse?", 1, False)
-    
