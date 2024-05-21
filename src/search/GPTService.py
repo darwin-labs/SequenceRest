@@ -102,10 +102,8 @@ class GPTService:
         response = requests.post(url, headers=headers, json=payload)
         
         decoded_response = json.loads(response.text)
-        
-        print(f'Decoded response: {decoded_response}')
-        
-        response_text = decoded_response["message"]["content"]
+                
+        response_text = decoded_response['choices'][0]['message']['content']
                 
         return response_text
             
