@@ -8,12 +8,15 @@ import SourceService
 from GoogleSearchService import GoogleSearchService
 from Utils.tld import get_tld
 from Utils.SearchServiceUtils import get_sources_string, get_sources
+import time
 
 class SearchService:
     def __init__(self):
         pass
 
     def handle_request(self, query, num_results, is_pro_user=False):
+        start_time = time.time()  # Record the start time
+
         google_search = GoogleSearchService()
         gpt_service = GPTService.GPTService()
 
@@ -29,6 +32,12 @@ class SearchService:
         prompt = f"Answer this question in English: {query}; Respond scientifically and fact-orientated using the text and information provided to you from these websites: {used_websites} with this content: {sources_string}. Use the content provided for you to form you answer. Use direct qoutes from the sources and link them with numbers in your response text. Qoute from sources using brackets [1]."
         
         answer = gpt_service.perform_search(query=prompt)
-        print(f"Answer: {answer}")
+        
+        #Measure the time
+        end_time = time.time()
+        execution_time = end_time - start_time
+        
+        print(f"Search Service took {execution_time} seconds to complete request.")
+        
         return answer
 
