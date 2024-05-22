@@ -10,7 +10,6 @@ google-search-results
 tiktoken~=0.6.0
 pyterrier
 pandas
-googlesearch-python
 trafilatura
 matplotlib==3.7.1
 plotly==5.13.1
