@@ -30,7 +30,7 @@ class SearchService:
         
         results_df = pd.DataFrame(results)
         
-        
+        #TODO: Call Semantic Search Service here to compute embeddings
 
         print("Got results, now sending a request to GPTService")
         used_websites = get_sources(results)
