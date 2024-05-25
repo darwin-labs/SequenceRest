@@ -9,7 +9,7 @@ from GoogleSearchService import GoogleSearchService
 from Utils.tld import get_tld
 from Utils.SearchServiceUtils import get_sources_string, get_sources
 import time
-from search import SemanticSearchService
+from embedding.SemanticEmbeddingService import SemanticSearchService
 
 class SearchService:
     def __init__(self):
