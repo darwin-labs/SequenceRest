@@ -27,6 +27,10 @@ class SearchService:
         if results is None:
             print("No results found.")
             return
+        
+        results_df = pd.DataFrame(results)
+        
+        
 
         print("Got results, now sending a request to GPTService")
         used_websites = get_sources(results)
