@@ -90,7 +90,7 @@ class GoogleSearchService:
         else:
             search_results = data['items']
             
-            limited_results = search_results[:3]
+            limited_results = search_results[:num_results]
             
             num_of_results = len(limited_results)
             
@@ -272,13 +272,17 @@ class GoogleSearchService:
 
         
 
-"""
+
 search_service = GoogleSearchService()
     
 query = "Coffee"
 num_results = 3
+
+log_path = 'logs/logs.json'
     
 start_time = time.time()
-google_search_test = search_service.perform_google_search(query='How to roast coffe?', num_results=10)
+google_search_test = search_service.perform_google_search_multithread(query=query)
 print(f"Search results: {google_search_test}")
-"""
+
+with open(log_path, 'w') as file:
+    json.dump(google_search_test, file, indent=4)
