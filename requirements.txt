@@ -10,7 +10,6 @@ google-search-results
 tiktoken~=0.6.0
 pyterrier
 pandas
-googlesearch-python
 trafilatura
 matplotlib==3.7.1
 plotly==5.13.1
@@ -19,13 +18,15 @@ scikit-learn==1.2.1
 python-docx==0.8.11
 python-pptx==0.6.21
 pyyaml
-python-googlesearch
 lxml
-googlesearch-python==1.1.1
 g4f
 Gunicorn
 Flask
 Werkzeug==2.2.2
 python-dotenv
 httplib
-python-googlesearch
+sumy
+gensim
+tiktoken
+torch
+together
