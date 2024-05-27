@@ -8,7 +8,7 @@ import bs4
 import pandas as pd
 import csv
 import time
-import deprecated
+#import deprecated
 from together import Together
 import os
 
