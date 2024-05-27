@@ -29,3 +29,4 @@ gensim
 tiktoken
 torch
 together
+faiss
