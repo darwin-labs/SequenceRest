@@ -4,7 +4,7 @@ import pandas as pd
 import numpy as np
 from transformers import GPT2TokenizerFast
 import tiktoken
-import EmbeddingService
+from embedding import EmbeddingService
 
 
 class SemanticSearchService:
