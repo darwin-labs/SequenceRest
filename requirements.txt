@@ -30,3 +30,5 @@ tiktoken
 torch
 together
 transformers
+llama-index-embeddings-together
+llama-index

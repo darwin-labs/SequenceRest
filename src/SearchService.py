@@ -9,7 +9,7 @@ from GoogleSearchService import GoogleSearchService
 from Utils.tld import get_tld
 from Utils.SearchServiceUtils import get_sources_string, get_sources
 import time
-from embedding.SemanticEmbeddingService import SemanticSearchService
+from embedding.SemanticEmbeddingService import HuggingfaceEmbeddingService
 
 
 class SearchService:
@@ -21,7 +21,7 @@ class SearchService:
 
         google_search = GoogleSearchService()
         gpt_service = GPTService.GPTService()
-        semantic_search_service = SemanticSearchService()
+        semantic_search_service = HuggingfaceEmbeddingService()
 
         results = google_search.perform_google_search_multithread(
             query=query, num_results=num_results)
