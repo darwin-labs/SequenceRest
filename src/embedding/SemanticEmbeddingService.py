@@ -94,9 +94,13 @@ class TogetherAIEmbeddingService:
         self.api_key = api_key
 
     def get_text_embedding(self, text):
-        model = 'togethercomputer/m2-bert-80M-8k-retrieval'
+        model_name = 'togethercomputer/m2-bert-80M-8k-retrieval'
 
-        return
+        model = TogetherEmbedding(model_name=model_name, api_key=api_key)
+
+        embedding = model.get_text_embedding(text)
+
+        return embedding
 
     def get_embeddings(texts: List[str], model: str) -> List[List[float]]:
         texts = [text.replace("\n", " ") for text in texts]
