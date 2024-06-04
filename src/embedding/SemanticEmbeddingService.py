@@ -8,7 +8,6 @@ from embedding import EmbeddingService
 import os
 
 
-
 class HuggingfaceEmbeddingService:
     def __init__(self, config, sender: Sender = None):
         self.config = config
@@ -58,7 +57,7 @@ class HuggingfaceEmbeddingService:
         result_df['rank'] = range(1, len(result_df) + 1)
         result_df['docno'] = range(1, len(result_df) + 1)
         return result_df[['title', 'url', 'description', 'text', 'similarities', 'rank', 'docno']]
-    
+
     def together_get_embeddings(self, text):
         model = ''
 
@@ -85,9 +84,8 @@ class HuggingfaceEmbeddingService:
             url_id_map)
         return gpt_input_text_df
 
+
 class TogetherAIEmbeddingService:
-    
+
     def __init__(self, api_key, sender: Sender = None):
         self.api_key = api_key
-        
-    
