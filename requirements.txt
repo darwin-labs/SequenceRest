@@ -2,8 +2,8 @@ requests
 openai
 colorama
 python-dotenv
-termcolor~=2.3.0
-tqdm5.0
+termcolor
+tqdm
 streamlit
 google-search-results
 tiktoken
