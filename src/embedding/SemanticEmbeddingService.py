@@ -6,6 +6,7 @@ from transformers import GPT2TokenizerFast
 import tiktoken
 from embedding import EmbeddingService
 import os
+from together import Together
 
 
 class HuggingfaceEmbeddingService:
@@ -87,5 +88,17 @@ class HuggingfaceEmbeddingService:
 
 class TogetherAIEmbeddingService:
 
+    client = Together()
+
     def __init__(self, api_key, sender: Sender = None):
         self.api_key = api_key
+
+    def get_text_embedding(self, text):
+        model = 'togethercomputer/m2-bert-80M-8k-retrieval'
+
+        return
+
+    def get_embeddings(texts: List[str], model: str) -> List[List[float]]:
+        texts = [text.replace("\n", " ") for text in texts]
+        outputs = client.embeddings.create(model=model, input=texts)
+        return [outputs.data[i].embedding for i in range(len(texts))]
