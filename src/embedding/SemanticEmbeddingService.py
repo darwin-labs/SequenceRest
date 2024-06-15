@@ -10,11 +10,10 @@ from together import Together
 
 
 class HuggingfaceEmbeddingService:
-    def __init__(self, config, sender: Sender = None):
+    def __init__(self, config):
         self.config = config
         openai.api_key = config.get('llm_service').get(
             'openai_api').get('api_key')
-        self.sender = sender
 
     @staticmethod
     def batch_call_embeddings(texts, chunk_size=1000):
@@ -90,7 +89,7 @@ class TogetherAIEmbeddingService:
 
     client = Together()
 
-    def __init__(self, api_key, sender: Sender = None):
+    def __init__(self, api_key):
         self.api_key = api_key
 
     def get_text_embedding(self, text):

@@ -21,7 +21,7 @@ class SearchService:
 
         google_search = GoogleSearchService()
         gpt_service = GPTService.GPTService()
-        semantic_search_service = HuggingfaceEmbeddingService()
+        semantic_search_service = TogetherAIEmbeddingService()
 
         results = google_search.perform_google_search_multithread(
             query=query, num_results=num_results)

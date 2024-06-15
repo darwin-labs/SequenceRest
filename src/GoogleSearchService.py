@@ -26,7 +26,7 @@ class GoogleSearchService:
         pass
 
     #Perform Google search on one thread only
-    def perform_google_search(self, query, num_results=10):
+    def perform_google_search(self, query, num_results=5):
         
         start_time = time.time()  # Record the start time
 
