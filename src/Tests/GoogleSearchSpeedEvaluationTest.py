@@ -1,4 +1,5 @@
 from googlesearch import search
+import requests
 
 
 if __name__ == '_main__':
