@@ -87,8 +87,6 @@ class HuggingfaceEmbeddingService:
 
 class TogetherAIEmbeddingService:
 
-    client = Together()
-
     def __init__(self, api_key):
         self.api_key = api_key
 
@@ -101,7 +99,7 @@ class TogetherAIEmbeddingService:
 
         return embedding
 
-    def get_embeddings(texts: List[str], model: str) -> List[List[float]]:
+    def get_embeddings(texts: lambdaist[str], model: str) -> list[list[float]]:
         texts = [text.replace("\n", " ") for text in texts]
         outputs = client.embeddings.create(model=model, input=texts)
         return [outputs.data[i].embedding for i in range(len(texts))]
