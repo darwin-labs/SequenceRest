@@ -12,7 +12,7 @@ from lxml import html
 import re
 import googlesearch
 from search import SearchErrors
-import google
+import googlesearch
 from time import sleep
 import concurrent.futures
 import os
