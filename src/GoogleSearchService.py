@@ -10,9 +10,8 @@ from bs4 import BeautifulSoup, SoupStrainer
 from concurrent.futures import ThreadPoolExecutor
 from lxml import html
 import re
-import googlesearch
 from search import SearchErrors
-import googlesearch
+from googlesearch import search
 from time import sleep
 import concurrent.futures
 import os
@@ -281,7 +280,7 @@ num_results = 3
 log_path = 'logs/logs.json'
     
 start_time = time.time()
-google_search_test = search_service.perform_google_search_multithread(query=query)
+google_search_test = search_service.search_request(query=query)
 print(f"Search results: {google_search_test}")
 
 with open(log_path, 'w') as file:
