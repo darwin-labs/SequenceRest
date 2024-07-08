@@ -11,7 +11,7 @@ from concurrent.futures import ThreadPoolExecutor
 from lxml import html
 import re
 from search import SearchErrors
-from googlesearch import search
+# from googlesearch import search
 from time import sleep
 import concurrent.futures
 import os
@@ -280,8 +280,10 @@ num_results = 3
 log_path = 'logs/logs.json'
     
 start_time = time.time()
+'''
 google_search_test = search_service.search_request(query=query)
 print(f"Search results: {google_search_test}")
 
 with open(log_path, 'w') as file:
     json.dump(google_search_test, file, indent=4)
+'''

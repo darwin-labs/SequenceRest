@@ -98,8 +98,9 @@ class TogetherAIEmbeddingService:
         embedding = model.get_text_embedding(text)
 
         return embedding
-
+'''
     def get_embeddings(texts: lambdaist[str], model: str) -> list[list[float]]:
         texts = [text.replace("\n", " ") for text in texts]
         outputs = client.embeddings.create(model=model, input=texts)
         return [outputs.data[i].embedding for i in range(len(texts))]
+        '''

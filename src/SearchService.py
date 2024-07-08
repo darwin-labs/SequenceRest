@@ -9,7 +9,7 @@ from GoogleSearchService import GoogleSearchService
 from Utils.tld import get_tld
 from Utils.SearchServiceUtils import get_sources_string, get_sources
 import time
-from embedding.SemanticEmbeddingService import HuggingfaceEmbeddingService
+from embedding.SemanticEmbeddingService import HuggingfaceEmbeddingService, TogetherAIEmbeddingService
 
 
 class SearchService:
@@ -21,7 +21,7 @@ class SearchService:
 
         google_search = GoogleSearchService()
         gpt_service = GPTService.GPTService()
-        semantic_search_service = TogetherAIEmbeddingService()
+        semantic_search_service = TogetherAIEmbeddingService(api_key='8840dbe4d5a3e36272014dc405ecb6175847a08882b306999751764c2d0fe131')
 
         results = google_search.perform_google_search_multithread(
             query=query, num_results=num_results)
@@ -51,3 +51,14 @@ class SearchService:
             f"Search Service took {execution_time} seconds to complete request.")
 
         return answer
+
+
+if __name__ == '__main__':
+    service = SearchService()
+    
+    query = "Em spiele heute"
+    num = 5
+    
+    request = service.handle_request(query=query, num_results=num, is_pro_user=False)
+    
+    print(f"Search service returned this answer: {request}")
