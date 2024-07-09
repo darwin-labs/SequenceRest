@@ -10,6 +10,7 @@ from Utils.tld import get_tld
 from Utils.SearchServiceUtils import get_sources_string, get_sources
 import time
 from embedding.SemanticEmbeddingService import HuggingfaceEmbeddingService, TogetherAIEmbeddingService
+from LoggingService import LoggingService
 
 
 class SearchService:
@@ -22,14 +23,13 @@ class SearchService:
         google_search = GoogleSearchService()
         gpt_service = GPTService.GPTService()
         semantic_search_service = TogetherAIEmbeddingService(api_key='8840dbe4d5a3e36272014dc405ecb6175847a08882b306999751764c2d0fe131')
+        logging_service = LoggingService()
 
         results = google_search.perform_google_search_multithread(
             query=query, num_results=num_results)
         if results is None:
             print("No results found.")
             return
-
-        results_df = pd.DataFrame(results)
 
         # TODO: Call Semantic Search Service here to compute embeddings
         # embeddings = semantic_search_service.get_embedding()
@@ -57,7 +57,7 @@ if __name__ == '__main__':
     service = SearchService()
     
     query = "Em spiele heute"
-    num = 5
+    num = 30
     
     request = service.handle_request(query=query, num_results=num, is_pro_user=False)
     
