@@ -69,7 +69,7 @@ class GoogleSearchService:
         
         return final_results
         
-    def perform_google_search_multithread(self, query, num_results=10):
+    def perform_google_search_multithread(self, query, num_results):
         start_time = time.time()  # Record the start time
 
         url = f"https://www.googleapis.com/customsearch/v1?key={GOOGLE_SEARCH_API_KEY}&cx={SEARCH_ENGINE_ID}&q={query}"
@@ -93,7 +93,7 @@ class GoogleSearchService:
             
             num_of_results = len(limited_results)
             
-            print("Total number of results: ", num_of_results)
+            print("Total number of results: ", len(search_results))
             
             def fetch_text_content(result):
                 print(f"Extracting text content for URL: {result['link']}")
@@ -257,7 +257,7 @@ class GoogleSearchService:
 
         except requests.RequestException as e:
             print(f"An error occurred while fetching the URL: {e}")
-            return ""
+            pass
 
 
     def count_tokens(input_string):

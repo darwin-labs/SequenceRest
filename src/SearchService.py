@@ -23,7 +23,7 @@ class SearchService:
         google_search = GoogleSearchService()
         gpt_service = GPTService.GPTService()
         semantic_search_service = TogetherAIEmbeddingService(api_key='8840dbe4d5a3e36272014dc405ecb6175847a08882b306999751764c2d0fe131')
-        logging_service = LoggingService()
+        logging_service = LoggingService.LoggingService()
 
         results = google_search.perform_google_search_multithread(
             query=query, num_results=num_results)
@@ -37,6 +37,9 @@ class SearchService:
 
         print("Got results, now sending a request to GPTService")
         used_websites = get_sources(results)
+        
+        print(f'Used sources: {used_websites}')
+        
         sources_string = get_sources_string(results)
 
         prompt = f"Answer this question in English: {query}; Respond scientifically and fact-orientated using the text and information provided to you from these websites: {used_websites} with this content: {sources_string}. Use the content provided for you to form you answer. Use direct qoutes from the sources and link them with numbers in your response text. Qoute from sources using these brackets []. Return you answer in markdown format."
