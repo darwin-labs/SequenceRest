@@ -32,3 +32,5 @@ transformers
 llama-index-embeddings-together
 llama-index
 typing
+langdetect
+iso-639

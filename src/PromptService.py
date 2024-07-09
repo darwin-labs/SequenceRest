@@ -1,4 +1,4 @@
-# Copyright (c) 2024 Darwin
+# Copyright (c) 2024 Darwin and Timon Harz
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -20,7 +20,10 @@
 from search import GPTService
 import json
 import os
-import pandas
+import pandas as pd
+from abc import ABC, abstractmethod
+from langdetect import langdetect, detect_langs
+
 
 class PromptService:
     def __init__():
@@ -30,7 +33,13 @@ class PromptService:
         
         sources_is_empty = input_df[0] == 0
         
+        prompt_length_limit = 3000
+        
         if sources_is_empty:
             print("Sources data frame is empty")
+            return
+        
+            prompt_engineering = ''
             
+        
         
