@@ -22,7 +22,13 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 import torch
 import transformers
 
-class HuggingFaceTokenizer: 
+try: 
+    from nltk.tokenize import WordPunctTokenizer
+except ImportError:
+    print("Natural Language Toolkit is not defined.")
+    nltk = None
+
+class DarwinTokenizer: 
     def __init__(self, model: str):
         self.model = model
         
@@ -194,14 +200,25 @@ class HuggingFaceTokenizer:
             "facebook/opt-66b"
         ]
         return valid_models_list
+    
         
     def tokenize_text(self, text: str):
-        tokenizer = AutoTokenizer.from_pretrained('gpt2')
+        tokenizer = AutoTokenizer.from_pretrained(self.model)
+        
+        input_ids = tokenizer(text, return_tensors='pt').input_ids
+   
+        return input_ids
+    
+
 
 
 if __name__ == '__main__': 
-    tokenizer = GPT2TokenizerFast.from_pretrained('Xenova/text-embedding-ada-002')
-    tokens = tokenizer.encode('hello world') 
-    assert tokens == [15339, 1917]
-    print(tokens)
-
+    tokenizer = DarwinTokenizer(model='gpt2')
+    
+    search_text = 'Test 123456'
+    
+    hugging_face_tokens = tokenizer.tokenize_text(text=search_text)
+    
+    print(f"Hugging face returned tokens: {hugging_face_tokens}, NLTK returned tokens: {nltk_tokens}")
+    
+    

@@ -21,7 +21,7 @@ from search import GPTService
 import json
 import os
 import pandas as pd
-from abc import ABC, abstractmethod
+#from abc import ABC, abstractmethod
 from langdetect import langdetect, detect_langs
 
 

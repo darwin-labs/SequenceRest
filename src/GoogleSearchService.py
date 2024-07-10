@@ -4,7 +4,7 @@ import pandas as pd
 import requests
 from search import GPTService   
 import time
-from text_extract.html.trafilactura import TrafilaturaSvc
+#from text_extract.html.trafilactura import TrafilaturaSvc
 from text_extract.html.beautifulsoup_extract import BeautifulSoupSvc
 from bs4 import BeautifulSoup, SoupStrainer
 from concurrent.futures import ThreadPoolExecutor

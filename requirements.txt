@@ -34,3 +34,4 @@ llama-index
 typing
 langdetect
 iso-639
+nltk
