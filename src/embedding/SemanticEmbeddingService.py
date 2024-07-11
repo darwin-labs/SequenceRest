@@ -1,13 +1,34 @@
+# Copyright (c) 2024 Darwin and Timon Harz
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
 import requests
 # import faiss
 import pandas as pd
 import numpy as np
 from transformers import GPT2TokenizerFast
 import tiktoken
-from embedding import EmbeddingService
+import EmbeddingService
 import os
-from together import Together
-
+import together
+from typing import List
+from langchain_together.embeddings import TogetherEmbedding
+import asyncio
 
 class HuggingfaceEmbeddingService:
     def __init__(self, config):
@@ -93,14 +114,25 @@ class TogetherAIEmbeddingService:
     def get_text_embedding(self, text):
         model_name = 'togethercomputer/m2-bert-80M-8k-retrieval'
 
-        model = TogetherEmbedding(model_name=model_name, api_key=api_key)
+        model = TogetherEmbeddings(model_name=model_name)
 
-        embedding = model.get_text_embedding(text)
-
+        embedding = model.embed_query(text)
+        
+        
         return embedding
+    
+    
 '''
     def get_embeddings(texts: lambdaist[str], model: str) -> list[list[float]]:
         texts = [text.replace("\n", " ") for text in texts]
         outputs = client.embeddings.create(model=model, input=texts)
         return [outputs.data[i].embedding for i in range(len(texts))]
         '''
+
+
+if __name__ == '__main__':
+    embedding_service = TogetherAIEmbeddingService(api_key='8840dbe4d5a3e36272014dc405ecb6175847a08882b306999751764c2d0fe131')
+    
+    test_embedding = embedding_service.get_text_embedding(text="Test 123456")
+    
+    
