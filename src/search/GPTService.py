@@ -32,6 +32,10 @@ from together import Together
 import os
 import time
 import sys
+import torch
+from transformers import AutoTokenizer
+from transformers import AutoModelForCausalLM
+
 
 #GPTService for handling any type requests
 class GPTService:
@@ -130,19 +134,41 @@ class GPTService:
                 
         return response_text
     
+    @deperated('This function is not yet supported, since it first downloads the model.')
     def perform_search_v2(self, query: str, system_prompt=None):
         query_len = len(query)
         
+        model_id = 'openchat/openchat-3.6-8b-20240522'
+        
+        #Load the tokeniizer and model from HuggingFace
+        tokenizer = AutoTokenizer.from_pretrained(model_id)
+        
+        model = AutoModelForCausalLM.from_pretrained(model_id, torch_type=torch.bfloat16, device_map='auto')
+        
+        messages = [
+            {
+               "role": "user", "content": query 
+            },
+            {
+                "role": "system", "content": system_prompt
+            }
+        ]
+        
+        input_ids = tokenizer.apply_chat_template(messages, add_generation_prompt=True, return_tensores='pt').to(model.device)
+        
+        outputs = model.generate(inputs_ids, do_sample=True, temperature=0.5, max_new_tokens=1024)
+        
+        response = outputs[0][input_ids.shape[-1]:]
+        print(tokenizer.decode(response, skip_special_tokens=False))
         
             
-        
 start_time = time.time()
 
 if __name__ == "__main__":
     service = GPTService()
     query = "Test query"
     model = "gpt-3.5-turbo"
-    request = service.perform_search('How to roast coffe?', system_message='')
+    request = service.perform_search_v2('How to roast coffe?', system_prompt='')
 
 end_time = time.time()
 execution_time = end_time - start_time
