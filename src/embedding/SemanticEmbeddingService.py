@@ -27,8 +27,9 @@ import EmbeddingService
 import os
 import together
 from typing import List
-from langchain_together.embeddings import TogetherEmbedding
+from langchain_together.embeddings import TogetherEmbeddings
 import asyncio
+from TogetherAIEmbedding import TogetherAIEmbeddingService
 
 class HuggingfaceEmbeddingService:
     def __init__(self, config):
@@ -104,37 +105,6 @@ class HuggingfaceEmbeddingService:
         gpt_input_text_df['url_id'] = gpt_input_text_df['url_id'].map(
             url_id_map)
         return gpt_input_text_df
-
-
-class TogetherAIEmbeddingService:
-
-    def __init__(self, api_key, model = 'togethercomputer/m2-bert-80M-8k-retrieval'):
-        self.api_key = api_key
-        self.model = model
-
-    def get_text_embedding(self, text):
-
-        model = TogetherEmbeddings(model=model)
-
-        embedding = model.embed_query(text)        
-        
-        return embedding
-    
-    async def get_text_embedding_async(self, text: str):
-        
-        embedding_model = TogetherEmbeddings(model=model)
-        
-        embedding = embedding_model.aembed(text)
-        
-        return embedding
-        
-'''
-    def get_embeddings(texts: lambdaist[str], model: str) -> list[list[float]]:
-        texts = [text.replace("\n", " ") for text in texts]
-        outputs = client.embeddings.create(model=model, input=texts)
-        return [outputs.data[i].embedding for i in range(len(texts))]
-        '''
-
 
 if __name__ == '__main__':
     embedding_service = TogetherAIEmbeddingService(api_key='8840dbe4d5a3e36272014dc405ecb6175847a08882b306999751764c2d0fe131')
