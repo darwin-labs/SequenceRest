@@ -310,22 +310,19 @@ class GoogleSearchService:
 
         
 
+if __name__ == '__main__':
+    search_service = GoogleSearchService()
+        
+    query = "Coffee"
+    num_results = 20
 
-search_service = GoogleSearchService()
+    log_path = 'logs/logs.json'
+        
+    start_time = time.time()
     
-query = "Coffee"
-num_results = 3
+    google_search_test = search_service.perform_google_search_multithread(query=query, num_results=num_results)
+    print(f"Search results: {google_search_test}")
 
-search_req  = search_service.search_request(query=query, num_results=num_results)
-
-
-log_path = 'logs/logs.json'
+    with open(log_path, 'w') as file:
+        json.dump(google_search_test, file, indent=4)
     
-start_time = time.time()
-'''
-google_search_test = search_service.search_request(query=query)
-print(f"Search results: {google_search_test}")
-
-with open(log_path, 'w') as file:
-    json.dump(google_search_test, file, indent=4)
-'''
