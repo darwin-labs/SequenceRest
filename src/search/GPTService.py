@@ -170,7 +170,7 @@ if __name__ == "__main__":
     service = GPTService()
     query = "Test query"
     model = "gpt-3.5-turbo"
-    request = service.perform_search_v2('How to roast coffe?', system_prompt='')
+    request = service.perform_search('How to roast coffe?', system_prompt='')
 
 end_time = time.time()
 execution_time = end_time - start_time
