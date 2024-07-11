@@ -19,8 +19,8 @@
 # SOFTWARE.
 import requests 
 import json
-import g4f
-from g4f.client import Client
+#import g4f
+#from g4f.client import Client
 import requests
 import re
 import bs4
@@ -82,6 +82,7 @@ class GPTService:
         print(f"payload: {payload}")
         return payload
     
+    '''
     def request_with_query(self, query: str, model: str, role: str):
         query_len = len(query)
         client = Client()
@@ -102,6 +103,7 @@ class GPTService:
         print(f"GPTService responded with content: {response}")
         
         return response
+    '''
     
     def perform_search(self, query: str, system_message=None):
         query_len = len(query)
