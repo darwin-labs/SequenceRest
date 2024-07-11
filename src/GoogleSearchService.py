@@ -1,3 +1,22 @@
+# Copyright (c) 2024 Darwin and Timon Harz
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
 from bs4 import BeautifulSoup
 import json
 import pandas as pd
@@ -11,7 +30,7 @@ from concurrent.futures import ThreadPoolExecutor
 from lxml import html
 import re
 from search import SearchErrors
-# from googlesearch import search
+import googlesearch
 from time import sleep
 import concurrent.futures
 import os
@@ -69,6 +88,26 @@ class GoogleSearchService:
         
         return final_results
         
+    """
+    Performs a Google search using multiple threads to fetch and process search results.
+
+    This method sends a request to the Google Custom Search JSON API with the specified query,
+    then processes a specified number of search results in parallel, extracting text content from each result's link.
+
+    Args:
+        query (str): The search query string.
+        num_results (int): The number of search results to process.
+
+    Returns:
+        list: A list of dictionaries, each containing the title, URL, description, and extracted text content of a search result.
+
+    Raises:
+        Exception: If an error occurs during the fetching of text content for any search result.
+
+    Note:
+        - The method prints the total number of search results found, the execution time, and any errors encountered.
+        - If the Google API returns an error or no search results, the method will print an error message and return None.
+    """
     def perform_google_search_multithread(self, query, num_results):
         start_time = time.time()  # Record the start time
 
@@ -276,6 +315,9 @@ search_service = GoogleSearchService()
     
 query = "Coffee"
 num_results = 3
+
+search_req  = search_service.search_request(query=query, num_results=num_results)
+
 
 log_path = 'logs/logs.json'
     
