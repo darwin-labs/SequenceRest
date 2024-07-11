@@ -1,3 +1,22 @@
+# Copyright (c) 2024 Darwin and Timon Harz
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
 import requests 
 import json
 import g4f
@@ -11,6 +30,8 @@ import time
 #import deprecated
 from together import Together
 import os
+import time
+import sys
 
 #GPTService for handling any type requests
 class GPTService:
@@ -102,19 +123,27 @@ class GPTService:
         response = requests.post(url, headers=headers, json=payload)
         
         decoded_response = json.loads(response.text)
+        
+        print(f'Decoded response: {decoded_response}')
                 
         response_text = decoded_response['choices'][0]['message']['content']
                 
         return response_text
+    
+    def perform_search_v2(self, query: str, system_prompt=None):
+        query_len = len(query)
+        
+        
             
         
-    
+start_time = time.time()
 
-if __name__ == "__main__": 
+if __name__ == "__main__":
     service = GPTService()
     query = "Test query"
     model = "gpt-3.5-turbo"
     request = service.perform_search('How to roast coffe?', system_message='')
-    
-    
-    
+
+end_time = time.time()
+execution_time = end_time - start_time
+print(f"Execution time: {execution_time:.6f} seconds")
