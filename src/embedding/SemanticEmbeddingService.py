@@ -108,20 +108,26 @@ class HuggingfaceEmbeddingService:
 
 class TogetherAIEmbeddingService:
 
-    def __init__(self, api_key):
+    def __init__(self, api_key, model = 'togethercomputer/m2-bert-80M-8k-retrieval'):
         self.api_key = api_key
+        self.model = model
 
     def get_text_embedding(self, text):
-        model_name = 'togethercomputer/m2-bert-80M-8k-retrieval'
 
-        model = TogetherEmbeddings(model_name=model_name)
+        model = TogetherEmbeddings(model=model)
 
-        embedding = model.embed_query(text)
-        
+        embedding = model.embed_query(text)        
         
         return embedding
     
-    
+    async def get_text_embedding_async(self, text: str):
+        
+        embedding_model = TogetherEmbeddings(model=model)
+        
+        embedding = embedding_model.aembed(text)
+        
+        return embedding
+        
 '''
     def get_embeddings(texts: lambdaist[str], model: str) -> list[list[float]]:
         texts = [text.replace("\n", " ") for text in texts]
