@@ -136,7 +136,7 @@ class GPTService:
                 
         return response_text
     
-    @deperated('This function is not yet supported, since it first downloads the model.')
+    #@deperated('This function is not yet supported, since it first downloads the model.')
     def perform_search_v2(self, query: str, system_prompt=None):
         query_len = len(query)
         
