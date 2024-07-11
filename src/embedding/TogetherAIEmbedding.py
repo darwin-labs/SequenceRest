@@ -26,17 +26,21 @@ import tiktoken
 import os
 import together 
 import asyncio
-import Utils
-
-
-os.environ['TOGETHER_API_KEY'] = ''
-
+from APIKeyLoader import APIKey_Loader
 
 class TogetherAIEmbeddingService:
 
-    def __init__(self, api_key, model_name= 'togethercomputer/m2-bert-80M-8k-retrieval'):
-        self.api_key = api_key
+    def __init__(self, model_name= 'togethercomputer/m2-bert-80M-8k-retrieval'):
+        self.api_key = _get_api_key()
         self.model_name = model_name
+        
+        
+    def _get_api_key(self):
+        api_key_service = APIKey_Loader()
+        
+        key = api_key_service.get_api_key('together_ai')
+
+        return key        
 
     def get_text_embedding(self, text):
 
