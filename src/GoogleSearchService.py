@@ -30,7 +30,7 @@ from concurrent.futures import ThreadPoolExecutor
 from lxml import html
 import re
 from search import SearchErrors
-import googlesearch
+#import googlesearch
 from time import sleep
 import concurrent.futures
 import os

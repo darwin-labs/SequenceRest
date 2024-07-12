@@ -35,3 +35,4 @@ class GPT4FreeService:
     
     
     def isReachable(self):
+        pass
