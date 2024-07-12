@@ -136,6 +136,11 @@ class GPTService:
                 
         return response_text
     
+    def stream_response(self, query: str, system_prompt: str = None):
+        query_len = len(query)
+
+        client = Together(api_key=os.environment.get('TOGETHER_API_KEY'))
+            
     #@deperated('This function is not yet supported, since it first downloads the model.')
     def perform_search_v2(self, query: str, system_prompt=None):
         query_len = len(query)
@@ -170,7 +175,7 @@ if __name__ == "__main__":
     service = GPTService()
     query = "Test query"
     model = "gpt-3.5-turbo"
-    request = service.perform_search('How to roast coffe?', system_prompt='')
+    request = service.perform_search('How to roast coffe?', system_message='')
 
 end_time = time.time()
 execution_time = end_time - start_time

@@ -3,6 +3,7 @@ from flask import Flask, request, jsonify
 from dotenv import load_dotenv
 from SearchService import SearchService
 import socket
+from credentials import APIKeyLoader
 
 app = Flask(__name__)
 

@@ -38,7 +38,7 @@ class TogetherAIEmbeddingService:
     def _get_api_key(self):
         api_key_service = APIKey_Loader()
         
-        key = api_key_service.get_api_key('together_ai')
+        key = os.environ.get('TOGETHER_API_KEY')
 
         return key        
 
