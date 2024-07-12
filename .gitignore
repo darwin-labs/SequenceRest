@@ -5,6 +5,8 @@ __pycache__/
 
 #API Keys
 /src/credentials/api_keys.json
+/scripts/render-deploy-test.sh
+
 
 # C extensions
 *.so
