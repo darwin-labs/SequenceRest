@@ -36,3 +36,4 @@ langdetect
 iso-639
 nltk
 accelerate
+celery

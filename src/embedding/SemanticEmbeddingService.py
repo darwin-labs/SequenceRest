@@ -23,7 +23,7 @@ import pandas as pd
 import numpy as np
 from transformers import GPT2TokenizerFast
 import tiktoken
-import EmbeddingService
+from EmbeddingService import EmbeddingService
 import os
 import together
 from typing import List

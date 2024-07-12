@@ -1,5 +1,4 @@
 import json
-import g4f
 from tld import get_tld
 
 
