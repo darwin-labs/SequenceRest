@@ -5,6 +5,7 @@ python-dotenv
 termcolor
 tqdm
 streamlit
+gogolesearch
 google-search-results
 tiktoken
 pyterrier
