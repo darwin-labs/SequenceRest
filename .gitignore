@@ -4,7 +4,7 @@ __pycache__/
 *$py.class
 
 #API Keys
-/src/credentials
+/src/credentials/api_keys.json
 
 # C extensions
 *.so
