@@ -70,7 +70,7 @@ def query_request():
         'completion': completion
     })
     
-@app.route('/api/stream/, methods=['GET']')
+@app.route('/api/stream/', methods=['GET']')
 def udp_stream():
     if not upd_data_queue.empty():
         data = udp_data_queue.get()
