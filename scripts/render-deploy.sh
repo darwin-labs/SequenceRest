@@ -5,7 +5,7 @@ SERVICE_ID="darwinrest"
 REPO_BRANCH="main"  # or the branch you want to deploy from
 
 # API endpoint
-API_ENDPOINT="https://api.render.com/v1/services/$SERVICE_ID/deploys"
+API_ENDPOINT="https://api.render.com/v1/services?limit=3/deploys"
 
 # Create JSON payload
 read -r -d '' PAYLOAD << EOM
