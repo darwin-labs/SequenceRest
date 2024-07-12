@@ -1,3 +1,8 @@
+cd ..
+pwd
+
+sh add-commit-push.sh
+
 #!/bin/bash
 
 API_KEY="rnd_H5JM4hI2OOZeiVWj6Za2YWxZRgSV"
