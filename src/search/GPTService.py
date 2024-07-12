@@ -139,10 +139,11 @@ class GPTService:
     def stream_response(self, query: str, system_prompt: str = None):
         query_len = len(query)
 
-        client = Together(api_key=os.environ.get('TOGETHER_API_KEY'))
+       # client = Together(api_key=os.environ.get('TOGETHER_API_KEY'))
+        client = Together(api_key='8840dbe4d5a3e36272014dc405ecb6175847a08882b306999751764c2d0fe131')
         
         stream = client.chat.completions.create(
-            model='mistralai/Mixstral-8x7B-Instruct-v0.1',
+            model='meta-llama/Llama-2-13b-chat-hf',
             messages=[
                 {"role": "user", "content": query},
                 {"role": "system", "content": system_prompt}
@@ -188,7 +189,7 @@ start_time = time.time()
 if __name__ == "__main__":
     
     service = GPTService()
-    query = "Test query"
+    query = "Who were you developed by?"
     model = "gpt-3.5-turbo"
     request = service.stream_response(query=query)
 
