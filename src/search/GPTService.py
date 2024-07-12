@@ -139,7 +139,21 @@ class GPTService:
     def stream_response(self, query: str, system_prompt: str = None):
         query_len = len(query)
 
-        client = Together(api_key=os.environment.get('TOGETHER_API_KEY'))
+        client = Together(api_key=os.environ.get('TOGETHER_API_KEY'))
+        
+        stream = client.chat.completions.create(
+            model='mistralai/Mixstral-8x7B-Instruct-v0.1',
+            messages=[
+                {"role": "user", "content": query},
+                {"role": "system", "content": system_prompt}
+            ], 
+            stream=True
+        )
+        for chunk in stream:
+            print(chunk.choices[0].delta.content or "", end="", flush=True)
+            
+        
+        
             
     #@deperated('This function is not yet supported, since it first downloads the model.')
     def perform_search_v2(self, query: str, system_prompt=None):
@@ -172,10 +186,11 @@ class GPTService:
 start_time = time.time()
 
 if __name__ == "__main__":
+    
     service = GPTService()
     query = "Test query"
     model = "gpt-3.5-turbo"
-    request = service.perform_search('How to roast coffe?', system_message='')
+    request = service.stream_response(query=query)
 
 end_time = time.time()
 execution_time = end_time - start_time

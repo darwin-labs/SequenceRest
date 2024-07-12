@@ -4,7 +4,7 @@ __pycache__/
 *$py.class
 
 #API Keys
-/src/credentials/api_keys.json
+#/src/credentials/api_keys.json
 /scripts/render-deploy-test.sh
 
 
