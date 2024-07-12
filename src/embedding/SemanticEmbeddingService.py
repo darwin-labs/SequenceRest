@@ -23,19 +23,16 @@ import pandas as pd
 import numpy as np
 from transformers import GPT2TokenizerFast
 import tiktoken
-from EmbeddingService import EmbeddingService
 import os
 import together
 from typing import List
 from langchain_together.embeddings import TogetherEmbeddings
 import asyncio
-from TogetherAIEmbedding import TogetherAIEmbeddingService
 
 class HuggingfaceEmbeddingService:
     def __init__(self, config):
         self.config = config
-        openai.api_key = config.get('llm_service').get(
-            'openai_api').get('api_key')
+        
 
     @staticmethod
     def batch_call_embeddings(texts, chunk_size=1000):

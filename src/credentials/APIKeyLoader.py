@@ -11,7 +11,7 @@ class APIKey_Loader:
     
     def _load_api_keys(self):
         if not os.path.exists(self.file_path):
-            raise APIKeysFileNotExistent
+            raise APIKeyServiceFileNonExistent
 
         with open(self.file_path, 'r') as file:
             data  = json.load(file)
@@ -40,7 +40,7 @@ class APIKey_Loader:
             os.environ[key] = keys[key]
             
     
-class APIKeysFileNotExistent(Exception):
+class APIKeyServiceFileNonExistent(Exception):
      error_log = 'API Key could not be fetched. JSON file which holds them is non existent'       
      
 

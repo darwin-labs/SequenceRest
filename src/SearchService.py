@@ -9,12 +9,15 @@ from GoogleSearchService import GoogleSearchService
 from Utils.tld import get_tld
 from Utils.SearchServiceUtils import get_sources_string, get_sources
 import time
-from embedding.SemanticEmbeddingService import HuggingfaceEmbeddingService, TogetherAIEmbeddingService
+from embedding.SemanticEmbeddingService import HuggingfaceEmbeddingService
+from embedding.TogetherAIEmbedding import TogetherAIEmbeddingService
 from LoggingService import LoggingService
+from credentials.APIKeyLoader import APIKey_Loader
 
 
 class SearchService:
     def __init__(self):
+        api_key_loader = APIKey_Loader(file_path='credentials/api_keys.json')
         pass
 
     def handle_request(self, query, num_results, is_pro_user=False):
@@ -22,7 +25,7 @@ class SearchService:
 
         google_search = GoogleSearchService()
         gpt_service = GPTService.GPTService()
-        semantic_search_service = TogetherAIEmbeddingService(api_key='8840dbe4d5a3e36272014dc405ecb6175847a08882b306999751764c2d0fe131')
+        semantic_search_service = TogetherAIEmbeddingService()
         logging_service = LoggingService.LoggingService()
 
         results = google_search.perform_google_search_multithread(
