@@ -47,7 +47,7 @@ class SearchService:
 
         prompt = f"Answer this question in English: {query}; Respond scientifically and fact-orientated using the text and information provided to you from these websites: {used_websites} with this content: {sources_string}. Use the content provided for you to form you answer. Use direct qoutes from the sources and link them with numbers in your response text. Qoute from sources using these brackets []. Return you answer in markdown format."
 
-        answer = gpt_service.perform_search(query=prompt)
+        answer = gpt_service.stream_response(query=prompt)
 
         # Measure the time
         end_time = time.time()

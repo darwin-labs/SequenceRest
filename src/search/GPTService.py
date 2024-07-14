@@ -40,7 +40,7 @@ from transformers import AutoModelForCausalLM
 #GPTService for handling any type requests
 class GPTService:
 
-    MAX_CHARACTERS = 16385
+    MAX_CHARACTERS = 4097
     
      
     def getResponse(self, query):
@@ -137,7 +137,10 @@ class GPTService:
         return response_text
     
     def stream_response(self, query: str, system_prompt: str = None):
+        
         query_len = len(query)
+        
+        reduced_query = query[:self.MAX_CHARACTERS]
 
        # client = Together(api_key=os.environ.get('TOGETHER_API_KEY'))
         client = Together(api_key='8840dbe4d5a3e36272014dc405ecb6175847a08882b306999751764c2d0fe131')
@@ -145,13 +148,23 @@ class GPTService:
         stream = client.chat.completions.create(
             model='meta-llama/Llama-2-13b-chat-hf',
             messages=[
-                {"role": "user", "content": query},
+                {"role": "user", "content": reduced_query},
                 {"role": "system", "content": system_prompt}
             ], 
             stream=True
         )
+        
+        answer = ''
+        
         for chunk in stream:
+            stream_payload = chunk.choices[0].delta.content
+            
             print(chunk.choices[0].delta.content or "", end="", flush=True)
+            
+            answer += stream_payload
+            
+        return answer
+            
             
         
         
