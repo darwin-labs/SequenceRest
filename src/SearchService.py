@@ -33,7 +33,7 @@ from embedding.SemanticEmbeddingService import HuggingfaceEmbeddingService
 from embedding.TogetherAIEmbedding import TogetherAIEmbeddingService
 from LoggingService import LoggingService
 from credentials.APIKeyLoader import APIKey_Loader
-import LLMService
+from LLMService import LLMService
 
 
 class SearchService:

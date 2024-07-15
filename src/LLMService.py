@@ -52,8 +52,3 @@ Answer:
         return prompt       
     
     
-
-
-service = LLMService()
-
-service.get_prompt(search_text="Hello World", input_text=[], useSource=True)
