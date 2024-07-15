@@ -18,7 +18,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 import json
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, Response
 from dotenv import load_dotenv
 from SearchService import SearchService
 import socket

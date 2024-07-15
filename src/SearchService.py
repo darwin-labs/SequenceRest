@@ -39,6 +39,7 @@ class SearchService:
             #results_df)
 
         print("Got results, now sending a request to GPTService")
+        print(f'Results: {results}')
         used_websites = get_sources(results)
         
         print(f'Used sources: {used_websites}')
@@ -48,6 +49,8 @@ class SearchService:
         prompt = f"Answer this question in English: {query}; Respond scientifically and fact-orientated using the text and information provided to you from these websites: {used_websites} with this content: {sources_string}. Use the content provided for you to form you answer. Use direct qoutes from the sources and link them with numbers in your response text. Qoute from sources using these brackets []. Return you answer in markdown format."
 
         answer = gpt_service.stream_response(query=prompt)
+        
+        print(f'Final answer: {answer}')
 
         # Measure the time
         end_time = time.time()
@@ -62,7 +65,7 @@ class SearchService:
 if __name__ == '__main__':
     service = SearchService()
     
-    query = "Em spiele heute"
+    query = "Recent attack on donald trump"
     num = 30
     
     request = service.handle_request(query=query, num_results=num, is_pro_user=False)

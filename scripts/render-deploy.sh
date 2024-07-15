@@ -7,6 +7,7 @@ sh add-commit-push.sh
 
 API_KEY="rnd_H5JM4hI2OOZeiVWj6Za2YWxZRgSV"
 SERVICE_ID="darwinrest"
+OWNER_ID=""
 REPO_BRANCH="main"  # or the branch you want to deploy from
 
 # API endpoint

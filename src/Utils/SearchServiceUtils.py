@@ -8,7 +8,7 @@ def get_sources(results):
     output_string = ""
     
     for result in results:
-        website_name = get_tld(result['url'])
+        website_name = result['url']
         string_to_append = f"{index}. {website_name}, "
         
         output_string +=  string_to_append

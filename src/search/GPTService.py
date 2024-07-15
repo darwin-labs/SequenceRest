@@ -138,13 +138,14 @@ class GPTService:
     
     def stream_response(self, query: str, system_prompt: str = None):
         
-        query_len = len(query)
-        
-        if query_len > self.MAX_CHARACTERS:
-            raise GPTServiceInvalidQuerySize
-        
+        initital_query_len = len(query)
         
         reduced_query = query[:self.MAX_CHARACTERS]
+        
+        reduced_query_len = len(reduced_query)
+        
+        if reduced_query_len > self.MAX_CHARACTERS:
+            raise GPTServiceInvalidQuerySize
 
        # client = Together(api_key=os.environ.get('TOGETHER_API_KEY'))
         client = Together(api_key='8840dbe4d5a3e36272014dc405ecb6175847a08882b306999751764c2d0fe131')
@@ -168,11 +169,7 @@ class GPTService:
             answer += stream_payload
             
         return answer
-            
-            
-        
-        
-            
+                      
     #@deperated('This function is not yet supported, since it first downloads the model.')
     def perform_search_v2(self, query: str, system_prompt=None):
         query_len = len(query)
