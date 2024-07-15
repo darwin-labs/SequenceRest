@@ -166,9 +166,7 @@ class GPTService:
             
             print(chunk.choices[0].delta.content or "", end="", flush=True)
             
-            answer += stream_payload
-            
-        return answer
+            yield stream_payload
                       
     #@deperated('This function is not yet supported, since it first downloads the model.')
     def perform_search_v2(self, query: str, system_prompt=None):

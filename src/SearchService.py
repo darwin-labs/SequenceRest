@@ -74,7 +74,10 @@ class SearchService:
 
         prompt = llm_service.get_prompt(search_text=query, input_text=results_df, websites=used_websites, use_source=True)
 
-        answer = gpt_service.stream_response(query=prompt)
+        answer = ''
+        
+        for partial_response in response_generator:
+            answer += partial_response
         
         print(f'Final answer: {answer}')
 
