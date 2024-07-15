@@ -1,3 +1,23 @@
+# Copyright (c) 2024 Darwin and Timon Harz
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+
 import os
 import re
 import pandas as pd
@@ -13,6 +33,7 @@ from embedding.SemanticEmbeddingService import HuggingfaceEmbeddingService
 from embedding.TogetherAIEmbedding import TogetherAIEmbeddingService
 from LoggingService import LoggingService
 from credentials.APIKeyLoader import APIKey_Loader
+import LLMService
 
 
 class SearchService:
@@ -27,9 +48,14 @@ class SearchService:
         gpt_service = GPTService.GPTService()
         semantic_search_service = TogetherAIEmbeddingService()
         logging_service = LoggingService.LoggingService()
+        llm_service = LLMService()
 
         results = google_search.perform_google_search_multithread(
             query=query, num_results=num_results)
+        
+        results_df = pd.DataFrame(results)
+        
+        
         if results is None:
             print("No results found.")
             return
@@ -46,7 +72,7 @@ class SearchService:
         
         sources_string = get_sources_string(results)
 
-        prompt = f"Answer this question in English: {query}; Respond scientifically and fact-orientated using the text and information provided to you from these websites: {used_websites} with this content: {sources_string}. Use the content provided for you to form you answer. Use direct qoutes from the sources and link them with numbers in your response text. Qoute from sources using these brackets []. Return you answer in markdown format."
+        prompt = llm_service.get_prompt(search_Text=query, input_text=results_df, websites=used_websites)
 
         answer = gpt_service.stream_response(query=prompt)
         
@@ -56,8 +82,7 @@ class SearchService:
         end_time = time.time()
         execution_time = end_time - start_time
 
-        print(
-            f"Search Service took {execution_time} seconds to complete request.")
+        print(f"Search Service took {execution_time} seconds to complete request.")
 
         return answer
 
@@ -65,7 +90,7 @@ class SearchService:
 if __name__ == '__main__':
     service = SearchService()
     
-    query = "Recent attack on donald trump"
+    query = "Who won the EM?"
     num = 30
     
     request = service.handle_request(query=query, num_results=num, is_pro_user=False)

@@ -17,10 +17,10 @@ class LLMService(ABC):
     def clean_response_text(self, response_text: str):
         return response_text.replace("\n", "")
     
-    def get_prompt(self, search_text: str, input_text: pd.DataFrame, useSource: bool):
+    def get_prompt(self, search_text: str, input_text: pd.DataFrame, websites: str):
         
         if useSource: 
-            prompt_engineering = f"\n\nAnswer the question '{search_text} in about 100 words'"
+            prompt_engineering = f"\n\nAnswer this question in English: {search_text}; Respond scientifically and fact-orientated using the text and information provided to you from these websites: {websites}. Use the content provided for you to create your based answer. Use direct qoutes from the sources and link them with numbers in your response text. Quote from sources using these brackets []. Return you answer in markdown format."
             promt = ""
             for index, row in input_text.iterrows():
                 prompt += f"""{row['text']}\n"""

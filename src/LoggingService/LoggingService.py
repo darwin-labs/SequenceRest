@@ -1,7 +1,7 @@
 import json
 import os
 import logging
-from pythonjsonlogger import jsonlogger
+#from pythonjsonlogger import jsonlogger
 
 
 class LoggingService:
