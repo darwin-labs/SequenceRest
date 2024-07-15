@@ -72,7 +72,7 @@ class SearchService:
         
         sources_string = get_sources_string(results)
 
-        prompt = llm_service.get_prompt(search_text=query, input_text=results_df, websites=used_websites)
+        prompt = llm_service.get_prompt(search_text=query, input_text=results_df, websites=used_websites, use_source=True)
 
         answer = gpt_service.stream_response(query=prompt)
         
