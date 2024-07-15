@@ -140,6 +140,10 @@ class GPTService:
         
         query_len = len(query)
         
+        if query_len > self.MAX_CHARACTERS:
+            raise GPTServiceInvalidQuerySize
+        
+        
         reduced_query = query[:self.MAX_CHARACTERS]
 
        # client = Together(api_key=os.environ.get('TOGETHER_API_KEY'))
@@ -173,6 +177,9 @@ class GPTService:
     def perform_search_v2(self, query: str, system_prompt=None):
         query_len = len(query)
         
+        if query_len > self.MAX_CHARACTERS:
+            raise GPTServiceInvalidQuerySize()
+        
         model_id = 'openchat/openchat-3.6-8b-20240522'
         
         #Load the tokeniizer and model from HuggingFace
@@ -197,7 +204,12 @@ class GPTService:
         print(tokenizer.decode(response, skip_special_tokens=False))
         
             
+class GPTServiceInvalidQuerySize(Exception):
+    error_log = 'The provided query is too big and thus the request got aborted.'
+
 start_time = time.time()
+
+
 
 if __name__ == "__main__":
     
