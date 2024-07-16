@@ -12,6 +12,7 @@ def get_sources(results):
         string_to_append = f"{index}. {website_name}, "
         
         output_string +=  string_to_append
+        index += 1
     
     return output_string
 

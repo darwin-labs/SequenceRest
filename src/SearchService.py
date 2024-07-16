@@ -78,7 +78,7 @@ class SearchService:
 
         answer = ''
         
-        response_generator = gpt_service.stream_response(query=query, system_prompt=None)
+        response_generator = gpt_service.stream_response(query=prompt, system_prompt=None)
         
         for partial_response in response_generator:
             answer += partial_response
