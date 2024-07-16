@@ -50,6 +50,8 @@ class SearchService:
         logging_service = LoggingService.LoggingService()
         llm_service = LLMService()
 
+
+        print(f'DEBUG: Requested a total of {num_results} sites.')
         results = google_search.perform_google_search_multithread(
             query=query, num_results=num_results)
         
@@ -76,6 +78,8 @@ class SearchService:
 
         answer = ''
         
+        response_generator = gpt_service.stream_response(query=query, system_prompt=None)
+        
         for partial_response in response_generator:
             answer += partial_response
         
@@ -93,8 +97,8 @@ class SearchService:
 if __name__ == '__main__':
     service = SearchService()
     
-    query = "Who won the EM?"
-    num = 30
+    query = "Who won the European championship in football?"
+    num = 2
     
     request = service.handle_request(query=query, num_results=num, is_pro_user=False)
     

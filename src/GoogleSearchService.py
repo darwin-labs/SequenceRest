@@ -164,7 +164,10 @@ class GoogleSearchService:
             
             print(f"Got results from google: {results}")
             search_results = []
-            for result in results:
+            
+            limited_results = results[:num_results]
+            
+            for result in limited_results:
                 
                 text_content = self.extract_sentences_from_url_v2(result.link)
                 print("result: ", result)
