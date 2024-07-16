@@ -137,6 +137,10 @@ class GoogleSearchService:
             def fetch_text_content(result):
                 print(f"Extracting text content for URL: {result['link']}")
                 text_content = self.extract_paragraphs(result['link'])
+                
+                if text_content is None:
+                    return 
+                
                 return {
                     "title": result['title'],
                     "url": result['link'],
@@ -299,7 +303,7 @@ class GoogleSearchService:
 
         except requests.RequestException as e:
             print(f"An error occurred while fetching the URL: {e}")
-            pass
+            return
 
 
     def count_tokens(input_string):
