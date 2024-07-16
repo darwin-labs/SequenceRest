@@ -304,6 +304,7 @@ class GoogleSearchService:
         except requests.RequestException as e:
             print(f"An error occurred while fetching the URL: {e}")
             return
+       # except requests.Req
 
 
     def count_tokens(input_string):
