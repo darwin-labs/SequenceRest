@@ -39,3 +39,5 @@ accelerate
 celery
 socketio
 langchain-together
+wsgiserver
+pyopenssl
