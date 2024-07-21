@@ -57,7 +57,6 @@ class SearchService:
         
         results_df = pd.DataFrame(results)
         
-        
         if results is None:
             print("No results found.")
             return
@@ -98,7 +97,7 @@ if __name__ == '__main__':
     service = SearchService()
     
     query = "Who won the European championship in football?"
-    num = 10
+    num = 3
     
     request = service.handle_request(query=query, num_results=num, is_pro_user=False)
     
