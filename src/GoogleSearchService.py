@@ -128,6 +128,8 @@ class GoogleSearchService:
         else:
             search_results = data['items']
             
+            print(f'Unformatted search results: {search_results}')
+            
             limited_results = search_results[:num_results]
             
             num_of_results = len(limited_results)
