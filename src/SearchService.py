@@ -31,7 +31,7 @@ from Utils.SearchServiceUtils import get_sources_string, get_sources
 import time
 from embedding.SemanticEmbeddingService import HuggingfaceEmbeddingService
 from embedding.TogetherAIEmbedding import TogetherAIEmbeddingService
-from LoggingService import LoggingService
+# from LoggingService import LoggingService
 from credentials.APIKeyLoader import APIKey_Loader
 from LLMService import LLMService
 
